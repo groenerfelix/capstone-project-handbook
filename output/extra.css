@@ -1,0 +1,67 @@
+:root > * {
+  --md-code-hl-color: #ff0000DD;
+  --md-code-hl-color--light: #ff000033;
+}
+
+.md-header,
+.md-sidebar,
+.md-footer {
+    display: none;
+}
+
+h1, h2, h3, h4 {
+    font-weight: 700!important;
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    margin-top: 3rem!important;
+    margin-bottom: 1rem!important;
+    padding-bottom: 0.5rem!important;
+    border-bottom: 1px solid var(--md-default-fg-color);
+}
+
+/* Specific instructions for printing in the browser */
+@media print {
+
+    .page-break {
+        break-before: page;
+    }
+
+    .no-break {
+        break-inside: avoid;
+    }
+
+    h1, h2, h3 {
+        break-after: avoid;
+    }
+    
+    /* hide nav + sidebar */
+    .md-sidebar,
+    .md-header,
+    .md-footer,
+    .md-nav {
+        display: none;
+    }
+
+    /* let content use full width */
+    .md-content {
+        margin: 0;
+    }
+
+    /* never split code blocks */
+    pre,
+    code,
+    .highlight,
+    .codehilite {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+    
+    pre {
+        white-space: pre-wrap;
+    }
+}
