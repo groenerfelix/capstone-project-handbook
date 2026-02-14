@@ -10,6 +10,8 @@
       
       
       
+        <link rel="next" href="../chapter-1/">
+      
       
         
       
@@ -312,6 +314,28 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#troubleshooting-common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting common issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important Tips
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -425,6 +449,33 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1: Creating Flask Apps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -490,6 +541,28 @@
     <span class="md-ellipsis">
       
         On Mac
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#troubleshooting-common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting common issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important Tips
       
     </span>
   </a>
@@ -657,6 +730,17 @@
 <li>Follow the installation wizard</li>
 <li>Verify installation by opening Terminal and typing: <code>python3 --version</code></li>
 </ol>
+<h4 id="troubleshooting-common-issues">Troubleshooting common issues<a class="headerlink" href="#troubleshooting-common-issues" title="Permanent link">&para;</a></h4>
+<p>Read error messages carefully—they usually indicate the problem!
+- "Python is not recognized" on Windows means that Python not added to PATH.Reinstall Python and check "Add Python to PATH"
+- "Permission denied" on Mac means insufficient permissions. Use <code>sudo python3 -m venv venv</code>  </p>
+<h3 id="important-tips">Important Tips<a class="headerlink" href="#important-tips" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Always activate your virtual environment before working on your project  </li>
+<li>Keep your terminal/command prompt open while developing  </li>
+<li>If you close the terminal, you'll need to reactivate the virtual environment  </li>
+<li>Never save passwords or sensitive information directly in your code  </li>
+</ul>
 <h2 id="setting-up-your-development-environment">Setting up your development environment<a class="headerlink" href="#setting-up-your-development-environment" title="Permanent link">&para;</a></h2>
 <p>These are the steps you will need to repeat for each assignment (each chapter) to set up your project environment.</p>
 <div class="admonition warning">
@@ -701,7 +785,7 @@
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Confirm that the venv is active</p>
-<p>If the activation was successful, you will now see <code>(venv)</code> at the beginning of your command line.</p>
+<p>If the activation was successful, you will now see <code>(venv)</code> at the beginning of your command line. If you get an error message, read it carefull. You might be in the wrong directory or have a type in the command.  </p>
 </div>
 <p>When you are done working in the environment, you can deactivate it by typing <code>deactivate</code>.</p>
 <h3 id="installing-required-packages">Installing required packages<a class="headerlink" href="#installing-required-packages" title="Permanent link">&para;</a></h3>
@@ -720,27 +804,51 @@
 </details>
 <p>You can usually find documentation and example snippets for these packages at <code>https://pypi.org/</code>!</p>
 <h3 id="version-control-with-git">Version control with git<a class="headerlink" href="#version-control-with-git" title="Permanent link">&para;</a></h3>
-<p>TODO</p>
+<p>You can use git to control the versioning of your code. It allows you to easily trace, synchronize, and revert your changes. Git is commonly used in collaborative projects. If you have never used git before, you should install GitHub Desktop for the easiest way to interact with git:</p>
+<ol>
+<li>Download GitHub Desktop from desktop.github.com </li>
+<li>Install the application on your computer </li>
+<li>Open GitHub Desktop and sign in with your GitHub account. If you don't have an account, create one at <a href="https://github.com">github.com</a> </li>
+<li>Create a new one in GitHub Desktop by clicking “File”, then "New repository", and select your project folder. If someone else on your team has already created and uploaded the shared repository (see below), then you would "Clone repository" instead of "New repository".</li>
+</ol>
+<p>Whenever you make changes to your code, you will see them listed in GitHub Desktop. When you want to create a snapshot of your current state, you need to commit your changes. In GitHub Desktop, 
+1. Write a clear, descriptive commit message (e.g., "Add user login functionality" instead of "updates").
+2. Click "Commit to main" to save the snapshot locally
+3. Click "Push origin" to upload your snapshot to the shared GitHub repository.</p>
+<p>If there are any files that you don't want to upload to GitHub, then create a <code>.gitignore</code> file in the repository folder (i.e., your project folder). There, enter the name of the folders and files you want to exclude, one per line.</p>
+<div class="language-text highlight"><span class="filename">.gitignore</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>__pycache__
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>.env
+</span></code></pre></div>
+<p>To add collaborators:
+1. Go to your repository on github.com
+2. Click "Settings" and then "Manage access"
+3. Click "Invite a collaborator"
+4. Enter their GitHub username and send the invitation.</p>
+<p>To make sure that everyone on the team has the same code, you should run git pull everytime before you start to work on something. <code>Pull</code> pulls the changes that your teammates have made in the meantime from the shared repository into your local repository.</p>
+<div class="admonition info">
+<p class="admonition-title">This is a very valuable skill to learn!</p>
+<p>Git and GitHub are used in almost all software development jobs. We can't go into more detail here, though. So, we recommend that you use this project as an opportunity to practice it.</p>
+</div>
 <h3 id="final-folder-structure">Final folder structure<a class="headerlink" href="#final-folder-structure" title="Permanent link">&para;</a></h3>
 <div class="admonition danger">
 <p class="admonition-title">Your projects must follow the folder structure below!</p>
 <p>This is very important to help us review and grade your code. We will deduct points if your <code>venv</code> is in the </p>
 </div>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>root_folder/ # (1)!
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>├── .gitignore # (2)!
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>├── venv/
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>└── project_folder/ # (3)!
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    └── Your code goes here (e.g., &#39;app.py&#39;)
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>root_folder/<span class="w"> </span><span class="c1"># (1)!</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>├──<span class="w"> </span>venv/
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>└──<span class="w"> </span>project_folder/<span class="w"> </span><span class="c1"># (2)!</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span>├──<span class="w"> </span>.gitignore<span class="w"> </span><span class="c1"># (3)!</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span>└──<span class="w"> </span>Your<span class="w"> </span>code<span class="w"> </span>goes<span class="w"> </span>here<span class="w"> </span><span class="o">(</span>e.g.,<span class="w"> </span><span class="s1">&#39;app.py&#39;</span><span class="o">)</span>
 </span></code></pre></div>
 <ol>
 <li>You are free to name this root folder whatever you want (e.g., <code>assignment_01</code> instead of <code>root_folder</code>)</li>
-<li>The <code>.gitignore</code> file is only needed if you are using git to push your code to github.</li>
 <li>You are free to name this project folder whatever you want(e.g., <code>my_app</code> instead of <code>project_folder</code>).</li>
+<li>The <code>.gitignore</code> file is only needed if you are using git to push your code to github.</li>
 </ol>
 <details class="info">
 <summary>Understanding this folder structure notation</summary>
 <p>We are going to use the above notation for folder structures throughout this manual. Each line is a file (if it includes a <code>.</code>) or a folder. A folder contains all the elements that are directly below it and further indented. The above structure would look as follows in Windows:</p>
-<p><img alt="Image title" src="../assets/images/folder_structure_example.png" /></p>
+<p><img alt="Folder Structure" src="../assets/images/ch0_folder_structure_example.png" /></p>
 </details>
 
 

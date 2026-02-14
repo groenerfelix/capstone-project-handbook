@@ -1,6 +1,6 @@
 :root > * {
-  --md-code-hl-color: #ff0000DD;
-  --md-code-hl-color--light: #ff000033;
+  --md-code-hl-color: #ff6f00dd;
+  --md-code-hl-color--light: #ff6f0033;
 }
 
 .md-header,
