@@ -45,6 +45,21 @@ The very first step is to install python and verify our installation. You only n
 5. Verify installation by opening Terminal and typing: `python3 --version`
 
 
+
+#### Troubleshooting common issues
+Read error messages carefully—they usually indicate the problem!
+- "Python is not recognized" on Windows means that Python not added to PATH.Reinstall Python and check "Add Python to PATH"
+- "Permission denied" on Mac means insufficient permissions. Use `sudo python3 -m venv venv`  
+ 
+
+### Important Tips
+
+- Always activate your virtual environment before working on your project  
+- Keep your terminal/command prompt open while developing  
+- If you close the terminal, you'll need to reactivate the virtual environment  
+- Never save passwords or sensitive information directly in your code  
+
+
 ## Setting up your development environment
 
 These are the steps you will need to repeat for each assignment (each chapter) to set up your project environment.
@@ -95,7 +110,7 @@ Before installing any packages or running your Flask app, you must activate the 
 - **on Mac:** `source venv/bin/activate`
 
 !!! warning "Confirm that the venv is active"
-    If the activation was successful, you will now see `(venv)` at the beginning of your command line.
+    If the activation was successful, you will now see `(venv)` at the beginning of your command line. If you get an error message, read it carefull. You might be in the wrong directory or have a type in the command.  
 
 When you are done working in the environment, you can deactivate it by typing `deactivate`.
 
@@ -121,8 +136,35 @@ You can usually find documentation and example snippets for these packages at `h
 
 ### Version control with git
 
-TODO
+You can use git to control the versioning of your code. It allows you to easily trace, synchronize, and revert your changes. Git is commonly used in collaborative projects. If you have never used git before, you should install GitHub Desktop for the easiest way to interact with git:
 
+1. Download GitHub Desktop from desktop.github.com 
+2. Install the application on your computer 
+3. Open GitHub Desktop and sign in with your GitHub account. If you don't have an account, create one at [github.com](https://github.com) 
+4. Create a new one in GitHub Desktop by clicking “File”, then "New repository", and select your project folder. If someone else on your team has already created and uploaded the shared repository (see below), then you would "Clone repository" instead of "New repository".
+
+Whenever you make changes to your code, you will see them listed in GitHub Desktop. When you want to create a snapshot of your current state, you need to commit your changes. In GitHub Desktop, 
+1. Write a clear, descriptive commit message (e.g., "Add user login functionality" instead of "updates").
+2. Click "Commit to main" to save the snapshot locally
+3. Click "Push origin" to upload your snapshot to the shared GitHub repository.
+
+If there are any files that you don't want to upload to GitHub, then create a `.gitignore` file in the repository folder (i.e., your project folder). There, enter the name of the folders and files you want to exclude, one per line.
+
+```title=".gitignore"
+__pycache__
+.env
+```
+
+To add collaborators:
+1. Go to your repository on github.com
+2. Click "Settings" and then "Manage access"
+3. Click "Invite a collaborator"
+4. Enter their GitHub username and send the invitation.
+
+To make sure that everyone on the team has the same code, you should run git pull everytime before you start to work on something. `Pull` pulls the changes that your teammates have made in the meantime from the shared repository into your local repository.
+
+!!! info "This is a very valuable skill to learn!"
+    Git and GitHub are used in almost all software development jobs. We can't go into more detail here, though. So, we recommend that you use this project as an opportunity to practice it.
 
 
 ### Final folder structure
@@ -130,19 +172,19 @@ TODO
 !!! danger "Your projects must follow the folder structure below!"
     This is very important to help us review and grade your code. We will deduct points if your `venv` is in the 
 
-```
+```bash
 root_folder/ # (1)!
-├── .gitignore # (2)!
 ├── venv/
-└── project_folder/ # (3)!
+└── project_folder/ # (2)!
+    ├── .gitignore # (3)!
     └── Your code goes here (e.g., 'app.py')
 ```
 
 1. You are free to name this root folder whatever you want (e.g., `assignment_01` instead of `root_folder`)
-2. The `.gitignore` file is only needed if you are using git to push your code to github.
-3. You are free to name this project folder whatever you want(e.g., `my_app` instead of `project_folder`).
+2. You are free to name this project folder whatever you want(e.g., `my_app` instead of `project_folder`).
+3. The `.gitignore` file is only needed if you are using git to push your code to github.
 
 ??? info "Understanding this folder structure notation"
     We are going to use the above notation for folder structures throughout this manual. Each line is a file (if it includes a `.`) or a folder. A folder contains all the elements that are directly below it and further indented. The above structure would look as follows in Windows:
 
-    ![Image title](assets/images/folder_structure_example.png)
+    ![Folder Structure](assets/images/ch0_folder_structure_example.png)
