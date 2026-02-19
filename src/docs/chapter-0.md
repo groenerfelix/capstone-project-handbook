@@ -29,7 +29,7 @@ The very first step is to install python and verify our installation. You only n
 !!! warning "We recommend you install Python through the Microsoft Store" 
     The steps below are an alternative if the Microsoft Store doesn't work for you.
 
-1. Visit [python.org](https://www.python.org/) and click on "Downloads"
+1. Visit [python.org/downloads/](https://www.python.org/downloads/)
 2. Download the latest Python 3.x version for Windows
 3. **IMPORTANT:** During installation, check the box that says 'Add Python to PATH'
 4. Click 'Install Now' and wait for installation to complete
@@ -38,7 +38,7 @@ The very first step is to install python and verify our installation. You only n
 
 #### On Mac
 
-1. Visit [python.org](https://www.python.org/) and click on "Downloads"
+1. Visit [python.org/downloads/](https://www.python.org/downloads/)
 2. Download the latest Python 3.x version for macOS
 3. Double-click the downloaded `.pkg` file
 4. Follow the installation wizard

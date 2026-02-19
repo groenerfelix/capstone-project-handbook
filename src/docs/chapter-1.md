@@ -172,10 +172,12 @@ def about():
 ```
 
 The `render_template` function from the Flask package converts our HTML/Jinja templates into HTML responses. If you now start your app and visit the URL, you should see our simple website. You can click on the "about" link at the top to go to the other website.
-
-![Image title](assets/images/ch1_template_no_bootstrap_home.png)
-
-![Image title](assets/images/ch1_template_no_bootstrap_about.png)
+<figure markdown="span">
+![Unstyled Homepage](assets/images/ch1_template_no_bootstrap_home.png)
+</figure>
+<figure markdown="span">
+![Unstyled About page](assets/images/ch1_template_no_bootstrap_about.png)
+</figure>
 
 
 
@@ -215,40 +217,40 @@ This allows us to use class names for which bootstrap has already predefined sty
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-{{ bootstrap.load_css() }}
-<title>{% block title %}{% endblock %} - My Flask App</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {{ bootstrap.load_css() }}
+    <title>{% block title %}{% endblock %} - My Flask App</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-<div class="container">
-<a class="navbar-brand" href="{{ url_for('home') }}">My Flask App</a>
-<button class="navbar-toggler" type="button"
-data-bs-toggle="collapse" data-bs-target="#navbarNav">
-<span class="navbar-toggler-icon"></span>
-</button>
-<div class="collapse navbar-collapse" id="navbarNav">
-<ul class="navbar-nav">
-<li class="nav-item">
-<a class="nav-link" href="{{ url_for('home') }}">Home</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" href="{{ url_for('about') }}">About</a>
-</li>
-</ul>
-</div>
-</div>
-</nav>
-<div class="container mt-4">
-{% block content %}{% endblock %}
-</div>
-<footer class="bg-dark text-light mt-5">
-<div class="container py-3">
-<p class="text-center mb-0">© 2026 My Flask App</p>
-</div>
-</footer>
-{{ bootstrap.load_js() }}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('home') }}">My Flask App</a>
+            <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('about') }}">About</a>
+                </li>
+            </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-4">
+    {% block content %}{% endblock %}
+    </div>
+    <footer class="bg-dark text-light mt-5">
+        <div class="container py-3">
+            <p class="text-center mb-0">© 2026 My Flask App</p>
+        </div>
+    </footer>
+    {{ bootstrap.load_js() }}
 </body>
 </html>
 ```
@@ -258,40 +260,41 @@ data-bs-toggle="collapse" data-bs-target="#navbarNav">
 {% block title %}Home{% endblock %}
 {% block content %}
 <div class="row">
-<div class="col-md-12">
-<h1 class="display-4">Welcome to My Flask App</h1>
-<p class="lead">This is a simple example using Flask templates with Bootstrap.</p>
-</div>
+    <div class="col-md-12">
+        <h1 class="display-4">Welcome to My Flask App</h1>
+        <p class="lead">This is a simple example using Flask templates with Bootstrap.</p>
+    </div>
 </div>
 <div class="row mt-4">
-<div class="col-md-4">
-<div class="card">
-<div class="card-body">
-<h5 class="card-title">Feature One</h5>
-<p class="card-text">This is a Bootstrap card component.</p>
-<a href="#" class="btn btn-primary">Learn More</a>
-</div>
-</div>
-</div>
-<div class="col-md-4">
-<div class="alert alert-success" role="alert">
-<h5 class="alert-heading">Did you know?</h5>
-<p>Bootstrap makes responsive design easy!</p>
-</div>
-</div>
-<div class="col-md-4">
-<div class="d-grid gap-2">
-<button class="btn btn-primary">Primary Button</button>
-<button class="btn btn-secondary">Secondary Button</button>
-</div>
-</div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Feature One</h5>
+                <p class="card-text">This is a Bootstrap card component.</p>
+                <a href="#" class="btn btn-primary">Learn More</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="alert alert-success" role="alert">
+            <h5 class="alert-heading">Did you know?</h5>
+            <p>Bootstrap makes responsive design easy!</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="d-grid gap-2">
+            <button class="btn btn-primary">Primary Button</button>
+            <button class="btn btn-secondary">Secondary Button</button>
+        </div>
+    </div>
 </div>
 {% endblock %}
 ```
 
 With this code your homepage now looks like this:
-
+<figure markdown="span">
 ![Homepage with bootstrap styling](assets/images/ch1_template_bootstrap_home.png)
+</figure>
 
 ## Adding custom static files (CSS & JavaScript)
 

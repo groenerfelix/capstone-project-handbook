@@ -104,6 +104,14 @@ theme:
 </figure>
 ```
 
+This needs to be enabled in the `mkdocs.yml` config file.
+
+```yml
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - pymdownx.blocks.caption
+```
 
 
 ## Tooltips
