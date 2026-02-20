@@ -83,7 +83,7 @@ cd assignment_01 # (2)!
 
 ### Working in virtual environments
 
-A  virtual  environment  is  an  isolated  Python  environment  that  keeps  your  project's  dependencies separate  from  other  projects.  This  is  essential  because  different  projects  may  require  different versions of the same package. Think of it as a container that holds all the specific tools your project needs without affecting other projects on your computer
+A virtual  environment  is  an  isolated  Python  environment  that  keeps  your  project's  dependencies separate  from  other  projects.  This  is  essential  because  different  projects  may  require  different versions of the same package. Think of it as a container that holds all the specific tools your project needs without affecting other projects on your computer
 
 ??? info "Why use virtual environments?"
     - Keeps project dependencies isolated
