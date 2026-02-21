@@ -7,15 +7,12 @@ This handbook provides you with the specific instructions for this project. Beca
 
 This handbook will also teach you everything you need to know to complete the project. You should remember most of it from previous courses.
 
-Between instructions and code snippets you will encounter three types of boxes in this manual.
+Between instructions and code snippets you will encounter two types of boxes in this manual.
 
-!!! danger "Critical Instructions"
-    You absolutely have to follow these instructions.
-
-!!! warning "Frequent Mistakes and Strong Recommendations"
+!!! warning "Important instructions and frequent mistakes"
     You should be aware of these.
 
-!!! info "Optional Insights"
+!!! info "Optional insights"
     You can skip these or read them if you want to learn more.
 
 
@@ -169,7 +166,7 @@ To make sure that everyone on the team has the same code, you should run git pul
 
 ### Final folder structure
 
-!!! danger "Your projects must follow the folder structure below!"
+!!! warn "Your projects must follow the folder structure below!"
     This is very important to help us review and grade your code. We will deduct points if your `venv` is in the 
 
 ```bash
