@@ -5,13 +5,13 @@ This is an interactive handbook to be handed out to students doing the capstone 
 
 ## Access the contents of the handbook:
 
-0. [Chapter 0: Getting Started](/output/chapter-0/) 
-1. [Chapter 1: Creating Flask Apps](/output/chapter-1/) 
-2. [Chapter 2: MySQL Database Integration](/output/chapter-2/) 
-3. [Chapter 3: CRUD Operations with Forms and Requests](/output/chapter-3/) 
-4. [Chapter 4: Authentication and Access Control](/output/chapter-4/) 
-5. [Chapter 5 (WIP): AWS RDS Database Setup](/output/chapter-5/) 
-6. [Chapter 6 (WIP): Deploying to AWS EC2](/output/chapter-6/) 
+0. [Chapter 0: Getting Started](https://groenerfelix.github.io/capstone-project-handbook/output/chapter-0/) 
+1. [Chapter 1: Creating Flask Apps](https://groenerfelix.github.io/capstone-project-handbook/output/chapter-1/) 
+2. [Chapter 2: MySQL Database Integration](https://groenerfelix.github.io/capstone-project-handbook/output/chapter-2/) 
+3. [Chapter 3: CRUD Operations with Forms and Requests](https://groenerfelix.github.io/capstone-project-handbook/output/chapter-3/) 
+4. [Chapter 4: Authentication and Access Control](https://groenerfelix.github.io/capstone-project-handbook/output/chapter-4/) 
+5. [Chapter 5 (WIP): AWS RDS Database Setup](https://groenerfelix.github.io/capstone-project-handbook/output/chapter-5/) 
+6. [Chapter 6 (WIP): Deploying to AWS EC2](https://groenerfelix.github.io/capstone-project-handbook/output/chapter-6/) 
 
 
 ## Printing to PDF
