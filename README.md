@@ -1,11 +1,29 @@
 
-# MkDocs Guide
+# IFT 401 Capstone Project Handbook
 
-This is a proof-of-concept for an interactive handbook to be handed out to students doing the capstone project. It is written using [MkDocs](https://www.mkdocs.org/).
+This is an interactive handbook to be handed out to students doing the capstone project (full-stack web application with Python, Flask, Bootstrap, and MySQL). It is written using [MkDocs](https://www.mkdocs.org/).
 
-See an example page at 
+## Access the contents of the handbook:
+
+0. [Chapter 0: Getting Started](/output/chapter-0/) 
+1. [Chapter 1: Creating Flask Apps](/output/chapter-1/) 
+2. [Chapter 2: MySQL Database Integration](/output/chapter-2/) 
+3. [Chapter 3: CRUD Operations with Forms and Requests](/output/chapter-3/) 
+4. [Chapter 4: Authentication and Access Control](/output/chapter-4/) 
+5. [Chapter 5 (WIP): AWS RDS Database Setup](/output/chapter-5/) 
+6. [Chapter 6 (WIP): Deploying to AWS EC2](/output/chapter-6/) 
+
+
+## Printing to PDF
+The easiest way to get a PDF document from this is to open the webpage and print it using the built-in browser function (e.g., `CTRL + P`).
+
+The `extra.css` file contains some helper classes to control page breaks in prints.
+- Insert `<div class="page-break"></div>` where you want to force a break.
+- Wrap content in `<div class="no-break">...</div>` to avoid splitting it across pages.
+
 
 ## Setup, Development, and Deployment Steps:
+
 1. Install and set up python
 2. Create a virtual environment `python -m venv venv`
 3. Activate venv `venv\Scripts\activate`
@@ -167,9 +185,3 @@ markdown_extensions:
 ```
 
 
-## Printing to PDF
-The easiest way to get a PDF document from this is to open the webpage and print it using the built-in browser function (e.g., `CTRL + P`).
-
-The `extra.css` file contains some helper classes to control page breaks in prints.
-- Insert `<div class="page-break"></div>` where you want to force a break.
-- Wrap content in `<div class="no-break">...</div>` to avoid splitting it across pages.
