@@ -1,6 +1,7 @@
 site_name: Example Handbook
 
-site_dir: ../output
+docs_dir: handbook
+site_dir: docs
 
 theme:
   name: material

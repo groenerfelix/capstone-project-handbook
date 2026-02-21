@@ -5,13 +5,13 @@ This is an interactive handbook to be handed out to students doing the capstone 
 
 ## Access the contents of the handbook:
 
-0. [Chapter 0: Getting Started](https://groenerfelix.github.io/capstone-project-handbook/output/chapter-0/) 
-1. [Chapter 1: Creating Flask Apps](https://groenerfelix.github.io/capstone-project-handbook/output/chapter-1/) 
-2. [Chapter 2: MySQL Database Integration](https://groenerfelix.github.io/capstone-project-handbook/output/chapter-2/) 
-3. [Chapter 3: CRUD Operations with Forms and Requests](https://groenerfelix.github.io/capstone-project-handbook/output/chapter-3/) 
-4. [Chapter 4: Authentication and Access Control](https://groenerfelix.github.io/capstone-project-handbook/output/chapter-4/) 
-5. [Chapter 5 (WIP): AWS RDS Database Setup](https://groenerfelix.github.io/capstone-project-handbook/output/chapter-5/) 
-6. [Chapter 6 (WIP): Deploying to AWS EC2](https://groenerfelix.github.io/capstone-project-handbook/output/chapter-6/) 
+0. [Chapter 0: Getting Started](https://groenerfelix.github.io/capstone-project-handbook/chapter-0/) 
+1. [Chapter 1: Creating Flask Apps](https://groenerfelix.github.io/capstone-project-handbook/chapter-1/) 
+2. [Chapter 2: MySQL Database Integration](https://groenerfelix.github.io/capstone-project-handbook/chapter-2/) 
+3. [Chapter 3: CRUD Operations with Forms and Requests](https://groenerfelix.github.io/capstone-project-handbook/chapter-3/) 
+4. [Chapter 4: Authentication and Access Control](https://groenerfelix.github.io/capstone-project-handbook/chapter-4/) 
+5. [Chapter 5 (WIP): AWS RDS Database Setup](https://groenerfelix.github.io/capstone-project-handbook/chapter-5/) 
+6. [Chapter 6 (WIP): Deploying to AWS EC2](https://groenerfelix.github.io/capstone-project-handbook/chapter-6/) 
 
 
 ## Printing to PDF
@@ -32,8 +32,7 @@ The `extra.css` file contains some helper classes to control page breaks in prin
 6. Start a local live preview in the browser `mkdocs serve --livereload`
 7. Edit files in `src/handbook/`: `md` for pages, `.yml` for config, `.css` for styling
 8. Save files and build distribution with `mkdocs build`
-9. Deploy files in `output/` to static hosting (e.g., Github Pages)
-10. See bottom of this document for instructions how to turn into a PDF.
+9. Deploy files in `src/docs/` to static hosting (e.g., Github Pages)
 
 
 ## Regular Markdown
