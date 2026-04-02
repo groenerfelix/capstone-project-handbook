@@ -1,3 +1,12 @@
+<div class="chapter-nav" markdown="1">
+
+[Previous](chapter-1.md) |
+[Home](index.md) |
+[Next](chapter-3.md)
+
+</div>
+
+
 # Chapter 2: MySQL Database Integration
 
 As the database for this project you will you MySQL. This chapter will show you how to set up your local development server, how to access it in Flask, and basic operations.
@@ -430,3 +439,12 @@ You can add a user by typing directing your browser to the URL
     - Try out he update and delete endpoints as well!
     - Try to cause an error message to show up!
     - Try adding Bootstrap and custom styling to the flash notifications
+
+
+<div class="chapter-nav" markdown="1">
+
+[Previous](chapter-1.md) |
+[Home](index.md) |
+[Next](chapter-3.md)
+
+</div>

@@ -32,7 +32,7 @@ The `extra.css` file contains some helper classes to control page breaks in prin
 6. Start a local live preview in the browser `mkdocs serve --livereload`
 7. Edit files in `src/handbook/`: `md` for pages, `.yml` for config, `.css` for styling
 8. Save files and build distribution with `mkdocs build`
-9. Deploy files in `src/docs/` to static hosting (e.g., Github Pages)
+9. Deploy files in `docs/` to static hosting (e.g., Github Pages)
 
 
 ## Regular Markdown

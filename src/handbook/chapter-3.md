@@ -1,3 +1,12 @@
+<div class="chapter-nav" markdown="1">
+
+[Previous](chapter-2.md) |
+[Home](index.md) |
+[Next](chapter-4.md)
+
+</div>
+
+
 # Chapter 3: CRUD Operations with Forms and Requests
 
 ## Project setup
@@ -207,3 +216,10 @@ Copy the following code snippets into their respective `.html` files. They only 
 !!! warning "Test your understanding of how to create HTML forms by making the missing one to view an individual user and the one to edit an individual user! Make sure they work by adding, editing, and deleting a couple of users."
 
 
+<div class="chapter-nav" markdown="1">
+
+[Previous](chapter-2.md) |
+[Home](index.md) |
+[Next](chapter-4.md)
+
+</div>

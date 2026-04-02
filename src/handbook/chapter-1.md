@@ -1,3 +1,12 @@
+<div class="chapter-nav" markdown="1">
+
+[Previous](chapter-0.md) |
+[Home](index.md) |
+[Next](chapter-2.md)
+
+</div>
+
+
 # Chapter 1: Creating Flask Apps
 
 !!! warning "Remember to set up your environment correctly!"
@@ -363,3 +372,11 @@ Then, link the custom static files in your html templates. Using the following v
 
 You can include them in the specific child template if only that one needs it or in the base template if all pages need it. Note that you can only overwrite the default bootstrap css/js if the link to your custom file comes *after* (i.e., in any line below) the `{{ bootstrap.load_css() }}`, for example.
 
+
+<div class="chapter-nav" markdown="1">
+
+[Previous](chapter-0.md) |
+[Home](index.md) |
+[Next](chapter-2.md)
+
+</div>

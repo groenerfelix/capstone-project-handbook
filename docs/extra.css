@@ -24,6 +24,15 @@ h2 {
     border-bottom: 1px solid var(--md-default-fg-color);
 }
 
+.chapter-nav p {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 1.5rem 0 2rem;
+}
+
+
 /* Specific instructions for printing in the browser */
 @media print {
 
@@ -43,7 +52,8 @@ h2 {
     .md-sidebar,
     .md-header,
     .md-footer,
-    .md-nav {
+    .md-nav,
+    .chapter-nav {
         display: none;
     }
 
@@ -63,5 +73,9 @@ h2 {
     
     pre {
         white-space: pre-wrap;
+    }
+
+    .chapter-nav {
+        display: none;
     }
 }

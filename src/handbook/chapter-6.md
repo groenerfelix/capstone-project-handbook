@@ -1,3 +1,10 @@
+<div class="chapter-nav" markdown="1">
+
+[Previous](chapter-5.md) |
+[Home](index.md)
+
+</div>
+
 # Chapter8: Deploying to AWS EC2
 
 !!! danger "TODO: work in progress"
@@ -154,3 +161,10 @@ screen -ls | List all screen sessions
 exit | Close current screen session  
 
 ✓ Congratulations! Your Flask application is now running in the cloud. For production use, consider using a WSGI server like Gunicorn and a reverse proxy like Nginx.
+
+<div class="chapter-nav" markdown="1">
+
+[Previous](chapter-5.md) |
+[Home](index.md)
+
+</div>

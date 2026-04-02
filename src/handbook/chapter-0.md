@@ -1,3 +1,10 @@
+<div class="chapter-nav" markdown="1">
+
+[Home](index.md) |
+[Next](chapter-1.md)
+
+</div>
+
 
 # Chapter 0: Getting Started
 
@@ -185,3 +192,10 @@ root_folder/ # (1)!
     We are going to use the above notation for folder structures throughout this manual. Each line is a file (if it includes a `.`) or a folder. A folder contains all the elements that are directly below it and further indented. The above structure would look as follows in Windows:
 
     ![Folder Structure](assets/images/ch0_folder_structure_example.png)
+
+<div class="chapter-nav" markdown="1">
+
+[Home](index.md) |
+[Next](chapter-1.md)
+
+</div>

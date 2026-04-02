@@ -1,3 +1,12 @@
+<div class="chapter-nav" markdown="1">
+
+[Previous](chapter-3.md) |
+[Home](index.md) |
+[Next](chapter-5.md)
+
+</div>
+
+
 # Chapter 4: Authentication and Access Control
 
 Flask-Login handles user session management, making it easy to implement login/logout functionality and restrict access to certain pages. 
@@ -277,3 +286,11 @@ def role_required(*roles):
         return decorated_function
     return decorator
 ```
+
+<div class="chapter-nav" markdown="1">
+
+[Previous](chapter-3.md) |
+[Home](index.md) |
+[Next](chapter-5.md)
+
+</div>

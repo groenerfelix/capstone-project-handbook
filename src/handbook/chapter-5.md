@@ -1,3 +1,12 @@
+
+<div class="chapter-nav" markdown="1">
+
+[Previous](chapter-4.md) |
+[Home](index.md) |
+[Next](chapter-6.md)
+
+</div>
+
 # Chapter7: AWS RDS Database Setup
 
 !!! danger "TODO: work in progress"
@@ -107,3 +116,12 @@ app.run(debug=True)
 ```
 
 ✓ Tip: For production, store sensitive credentials in environment variables, not in your code.
+
+
+<div class="chapter-nav" markdown="1">
+
+[Previous](chapter-4.md) |
+[Home](index.md) |
+[Next](chapter-6.md)
+
+</div>
