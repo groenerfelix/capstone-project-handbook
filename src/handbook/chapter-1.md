@@ -70,9 +70,9 @@ Debug mode has two advantages for your development process:
 Templates allow you to separate your Python code from your HTML. Instead of embedding HTML directly in your Python code, you create separate HTML files that Flask renders dynamically. Flask uses **Jinja2**, a powerful templating engine that allows you to include Python-like expressions in your HTML. The Jinja-specific code blocks that differ from standard HTML are indicated by `{% ... %}`.
 
 ??? info "Why use templates?"
-    - Separates logic from presentation (cleaner code)  
-    - Enables template inheritance (no repeat code)  
-    - Makes it easy to maintain consistent layouts  
+    - Separates logic from presentation (cleaner code)
+    - Enables template inheritance (no repeat code)
+    - Makes it easy to maintain consistent layouts
     - Allows dynamic content insertion
 
 
@@ -126,7 +126,7 @@ Copy this code into `templates/base.html` and make sure you understand every sin
 </html>
 ```
 
-- `{% block parameter_name %}{% endblock %}` is a placeholder that will be filled by the child template
+- `{% block parameter_name %}{% endblock %}` is a placeholder that will be filled by the child template.
 - `{{ url_for('resource_name') }}` is a function that the server will replace with the url like `/about`.
 
 

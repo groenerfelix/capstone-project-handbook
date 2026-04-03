@@ -119,8 +119,8 @@ python -m venv venv
 
 - Remember to use `python3` instead of `python` if you are on a Mac.
 - `-m` stands for "module" and means that the next parameter is the name of the module that will be executed
-- the first `venv` is the "virtual environment" module
-- the second `venv` can be whatever you want to name your environment.
+- The first `venv` is the "virtual environment" module.
+- The second `venv` can be whatever you want to name your environment.
     
 !!! warning "'Permission denied' Error on Mac"
     Use `sudo python3 -m venv venv`.
