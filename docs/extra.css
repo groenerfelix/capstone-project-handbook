@@ -32,6 +32,18 @@ h2 {
     margin: 1.5rem 0 2rem;
 }
 
+/* never split code blocks */
+pre,
+code,
+.highlight,
+.codehilite {
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+pre {
+    white-space: pre-wrap;
+}
 
 /* Specific instructions for printing in the browser */
 @media print {
@@ -60,22 +72,5 @@ h2 {
     /* let content use full width */
     .md-content {
         margin: 0;
-    }
-
-    /* never split code blocks */
-    pre,
-    code,
-    .highlight,
-    .codehilite {
-        break-inside: avoid;
-        page-break-inside: avoid;
-    }
-    
-    pre {
-        white-space: pre-wrap;
-    }
-
-    .chapter-nav {
-        display: none;
     }
 }

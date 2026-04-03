@@ -10,7 +10,7 @@
 # Chapter 1: Creating Flask Apps
 
 !!! warning "Remember to set up your environment correctly!"
-    In the beginning of every chapter, you will need to go through the steps outlined in Chapter 0. Make sure that you have your virtual environment set up and activated!
+    In the beginning of every chapter, you are required to go through the steps outlined in Chapter 0. Make sure that you have your virtual environment set up and activated!
 
 
 ## Introduction to Flask
@@ -24,11 +24,13 @@ Install Flask in your active virtual envionment with `pip install flask`.
 
 You can check whether Flask is installed with `pip list`.
 
+!!! warning "Remember to use `pip3` and `python3` on Macs."
+
 ### A minimal Flask application
 
 In your project folder, create a new file called `app.py`.
 
-```python
+```python title="app.py" linenums="1"
 from flask import Flask # (1)!
 
 app = Flask(__name__) # (2)!
@@ -41,7 +43,7 @@ def hello(): # (4)!
 1. Importing the `Flask` class from the `flask` library
 2. Creating an instance of that class and passing it the name of the module. Look up `__name__ in python` for more info.
 3. This is a special function added by Flask to indicate which function should be called when someone visits `/` (i.e., the homepage). This parameter can be any route like `/about`. Look up `decorator functions in python` if you are unfamiliar with the `@` notation.
-4. We define the function that gets called. You can name this anything but make sure the name isn't already taken.
+4. Define the function that gets called. You can name this anything but make sure the name is not already taken.
 5. This string will be returned to whoever accesses the server. In a browser, this will be rendered as HTML.
 
 Start your app with `flask run`. It should show you in the console what URL you need to type into your browser to access the page (typically [http://127.0.0.1:5000/](http://127.0.0.1:5000/)). This should now display "Hello, World!".
@@ -49,15 +51,16 @@ Start your app with `flask run`. It should show you in the console what URL you 
 You can stop your app with `CTRL + C` or by closing the terminal.
 
 !!! warning "Troubleshooting common issues"
-    - "Flask not found" means that either the venv is not activated or Flask is not installed.
+    - "Flask not found" means that either the virtual environment is not activated or Flask is not installed.
     - "Port 5000 already in use" means that another app is using the port (maybe your own flask app in another terminal!). Close whatever other app is using the port or change the port of your new app with `flask run --port=5001`.
 
 
 ### Debug mode
 
-You can enable debug mode for your application during development by running `flask run --debug`. You should never use this in production or submissions!
+You can enable debug mode for your application during development by running `flask run --debug`. Never use this in production or submissions!
 
 Debug mode has two advantages for your development process:
+
 - **Hot reload:** It automatically restarts the server when you save changes to your code.
 - **Detailed errors:** It shows helpful details in the browser when something goes wrong.
 
@@ -68,14 +71,14 @@ Templates allow you to separate your Python code from your HTML. Instead of embe
 
 ??? info "Why use templates?"
     - Separates logic from presentation (cleaner code)  
-    - Enables template inheritance (DRY principle)  
+    - Enables template inheritance (no repeat code)  
     - Makes it easy to maintain consistent layouts  
     - Allows dynamic content insertion
 
 
 ### Project structure
 
-We add a folder which contains our HTML templates. It has to be in this exact location and has to be named `tamplates`:
+Add a folder which contains your HTML templates. It has to be in this exact location and has to be named `templates`:
 
 ```
 my_flask_project/
@@ -91,12 +94,9 @@ my_flask_project/
 
 ### Base templates
 
-A base template contains the common HTML structure that several (or all) pages share. Think of it like abstracting shared functionality into a superclass. Other templates extend/inherit this base and fill in specific content blocks.
+A base template contains the common HTML structure that several (or all) pages share. For example, all pages of your web app will likely have a consistent header and footer. Instead of writing that code multiple times, you will put such shared functionality into a base template. These templates are not full pages and will never be rendered on their own. Other templates extend/inherit these base templates and fill in the placeholder content blocks.
 
 Copy this code into `templates/base.html` and make sure you understand every single line of it:
-
-- `{% block parameter_name %}{% endblock %}` is a placeholder that will be filled by the child template
-- `{{ url_for('resource_name') }}` is a function that the server will replace with the url like `/about`.
 
 ```html title="templates/base.html" linenums="1"
 <!DOCTYPE html>
@@ -126,18 +126,20 @@ Copy this code into `templates/base.html` and make sure you understand every sin
 </html>
 ```
 
+- `{% block parameter_name %}{% endblock %}` is a placeholder that will be filled by the child template
+- `{{ url_for('resource_name') }}` is a function that the server will replace with the url like `/about`.
 
 
 ### Template inheritance
 
-Child templates can now extend the base template and fill in the content blocks.
+Child templates extend the base template and fill in the content block placeholders.
 
-- `{% extends "base.html" %}` means that we are using the base template as a starting point.
+- `{% extends "base.html" %}` means the child template is using the base template as a starting point.
 - `{% block parameter_name %}...{% endblock %}` fills the placeholder with the content enclosed within the block.
 
 Copy this code into `templates/home.html` and `templates/about.html` respectively and make sure you understand every single line: 
 
-```html title="templates/home.html"
+```html title="templates/home.html" linenums="1"
 {% extends "base.html" %}
 
 {% block title %}Home{% endblock %}
@@ -149,7 +151,7 @@ Copy this code into `templates/home.html` and `templates/about.html` respectivel
 ```
 
 
-```html title="templates/about.html"
+```html title="templates/about.html" linenums="1"
 {% extends "base.html" %}
 
 {% block title %}About{% endblock %}
@@ -160,11 +162,11 @@ Copy this code into `templates/home.html` and `templates/about.html` respectivel
 {% endblock %}
 ```
 
-Notice how you don't have to write the same code for the navigation links and the footer again for the home and about pages. This saves you time, especially if you want to make changes to that code later.
+Notice how you do not have to write the same code for the navigation links and the footer again for the home and about pages. This saves you time, especially if you want to make changes to that code later.
 
 ### Using templates in your app
 
-Now, we make a small change to our `app.py` to render and return the HTML code instead of "Hello, World".
+Now make the following small change to your `app.py` to render and return the HTML code instead of "Hello, World".
 
 ```python
 from flask import Flask, render_template
@@ -172,7 +174,7 @@ from flask import Flask, render_template
 app = Flask(__name__)
 
 @app.route("/")
-def home(): # (2)!
+def home():
     return render_template("home.html")
 
 @app.route("/about")
@@ -180,7 +182,7 @@ def about():
     return render_template("about.html")
 ```
 
-The `render_template` function from the Flask package converts our HTML/Jinja templates into HTML responses. If you now start your app and visit the URL, you should see our simple website. You can click on the "about" link at the top to go to the other website.
+The `render_template` function from the Flask package converts Jinja templates into HTML responses. When you now start your app and visit the URL, you should see the simple website. Click on the "about" link at the top to go to the other page.
 <figure markdown="span">
 ![Unstyled Homepage](assets/images/ch1_template_no_bootstrap_home.png)
 </figure>
@@ -192,35 +194,23 @@ The `render_template` function from the Flask package converts our HTML/Jinja te
 
 ## Styling with Bootstrap
 
-Next, we are going to work on making these websites look better. Bootstrap is a popular CSS framework that helps you create professional-looking, responsive websites quickly. You will use Bootstrap-Flask for easy integration.
+Bootstrap is a popular library of predefined styles. You will use these styles to quickly make your websites look better.
 
-Install the required package with `pip install Bootstrap-Flask`.
+Bootstrap works by defining utility CSS classes that you can assign to your HTML elements. For example, instead of assigning a class of `dark-mode-paragraph` and then writing its specific styles in a `.css` file, you can use Bootstrap's predefined class names. These class names like `bg-dark text-light mt-5 py-3` are now shortcuts to styling colors, fonts, and spacings (e.g., `mt` = margin top).
 
-Add bootstrap to your project by integrating these lines:
+!!! info "Find all your style options and premade components at [getbootstrap.com](https://getbootstrap.com/)!"
 
-```python title="app.py" linenums="1" hl_lines="2 5"
-from flask import Flask, render_template
-from flask_bootstrap import Bootstrap5
+Your app will retrieve this predefined code from a content delivery network (CDN). This means that your app is telling every browser that visits your website to load someone else's code that you have no control over. This is convenient but can pose a security risk.
 
-app = Flask(__name__)
-bootstrap = Bootstrap5(app)
+Get the link to the latest CSS (styles) and JS (code) from [getbootstrap.com/docs/5.0/getting-started/introduction](https://getbootstrap.com/docs/5.0/getting-started/introduction). These will look something like this:
 
-@app.route("/")
-def home():
-    return render_template("home.html")
-
-@app.route("/about")
-def about():
-    return render_template("about.html")
+```html
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 ```
 
-This allows us to use class names for which bootstrap has already predefined styles. Replace the code in `/templates/base.html` and `/templates/home.html` with the following, respectively.
+As you can see, you include these external files by linking them just like you would link a local stylesheet. The integrity attribute ensures that the file has not been tempered with. You can visit the link in the `href` attribute to check out the code that you are loading.
 
-- `{{ bootstrap.load_css() }}` loads the default CSS from a content-delivery network (CDN)
-- `{{ bootstrap.load_js() }}` does the same with JavaScript
-- class names like `bg-dark text-light mt-5 py-3` are now shortcuts to styling colours, fonts, and spacings (e.g., `mt` = margin top)
-
-!!! info "Find all your style options and premade components at [https://getbootstrap.com/](https://getbootstrap.com/)!"
+Replace the code in `/templates/base.html` and `/templates/home.html` with the following, respectively. It includes the two links you have retrieved from the website and already applies many utility classes to the elements.
 
 ```html title="/templates/base.html" linenums="1" hl_lines="6 37"
 <!DOCTYPE html>
@@ -228,7 +218,7 @@ This allows us to use class names for which bootstrap has already predefined sty
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {{ bootstrap.load_css() }}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>{% block title %}{% endblock %} - My Flask App</title>
 </head>
 <body>
@@ -259,7 +249,7 @@ This allows us to use class names for which bootstrap has already predefined sty
             <p class="text-center mb-0">© 2026 My Flask App</p>
         </div>
     </footer>
-    {{ bootstrap.load_js() }}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
 ```
@@ -302,12 +292,17 @@ This allows us to use class names for which bootstrap has already predefined sty
 
 With this code your homepage now looks like this:
 <figure markdown="span">
-![Homepage with bootstrap styling](assets/images/ch1_template_bootstrap_home.png)
+![Homepage with Bootstrap styling](assets/images/ch1_template_bootstrap_home.png)
 </figure>
+
+
+??? info "If you like Bootstrap, you might want to check out its Python package for future projects"
+    Injecting the Bootstrap styles through Python, Flask, and Jinja can make parts of your code a little bit cleaner. You can look into it at [bootstrap-flask.readthedocs.io](https://bootstrap-flask.readthedocs.io/en/stable/). For this class, you are required to use the CDN link instead of the Python package.
+
 
 ## Adding custom static files (CSS & JavaScript)
 
-If you ever want to add additional styling instructions or client-side code that is not included in bootstrap, then you can link custom `.css` and `.js` files.
+If you ever need to add additional styling instructions or client-side code that is not included in Bootstrap, then you can link custom `.css` and `.js` files.
 
 Create the following two files in new folder and place the code below into them. Your final folder structure should look like this. The new folders and files should be named and placed exactly like this:
 
@@ -370,7 +365,7 @@ Then, link the custom static files in your html templates. Using the following v
 - `<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">` in the `head` of your template.
 - `<script src="{{ url_for('static', filename='js/script.js') }}"></script>` at the end of the `body` of the template.
 
-You can include them in the specific child template if only that one needs it or in the base template if all pages need it. Note that you can only overwrite the default bootstrap css/js if the link to your custom file comes *after* (i.e., in any line below) the `{{ bootstrap.load_css() }}`, for example.
+You can include them in the specific child template if only that one needs it or in the base template if all pages need it. Note that you can only overwrite the default Bootstrap css/js if the link to your custom file comes *after* (i.e., in any line below) the linked Bootstrap code.
 
 
 <div class="chapter-nav" markdown="1">

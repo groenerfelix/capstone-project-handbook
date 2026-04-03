@@ -807,7 +807,7 @@
 <h1 id="chapter-1-creating-flask-apps">Chapter 1: Creating Flask Apps<a class="headerlink" href="#chapter-1-creating-flask-apps" title="Permanent link">&para;</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">Remember to set up your environment correctly!</p>
-<p>In the beginning of every chapter, you will need to go through the steps outlined in Chapter 0. Make sure that you have your virtual environment set up and activated!</p>
+<p>In the beginning of every chapter, you are required to go through the steps outlined in Chapter 0. Make sure that you have your virtual environment set up and activated!</p>
 </div>
 <h2 id="introduction-to-flask">Introduction to Flask<a class="headerlink" href="#introduction-to-flask" title="Permanent link">&para;</a></h2>
 <h3 id="what-is-flask">What is Flask?<a class="headerlink" href="#what-is-flask" title="Permanent link">&para;</a></h3>
@@ -815,21 +815,30 @@
 <h3 id="installing-flask">Installing Flask<a class="headerlink" href="#installing-flask" title="Permanent link">&para;</a></h3>
 <p>Install Flask in your active virtual envionment with <code>pip install flask</code>.</p>
 <p>You can check whether Flask is installed with <code>pip list</code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Remember to use <code>pip3</code> and <code>python3</code> on Macs.</p>
+</div>
 <h3 id="a-minimal-flask-application">A minimal Flask application<a class="headerlink" href="#a-minimal-flask-application" title="Permanent link">&para;</a></h3>
 <p>In your project folder, create a new file called <code>app.py</code>.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">flask</span><span class="w"> </span><span class="kn">import</span> <span class="n">Flask</span> <span class="c1"># (1)!</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span> <span class="c1"># (2)!</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span> <span class="c1"># (3)!</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">hello</span><span class="p">():</span> <span class="c1"># (4)!</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="k">return</span> <span class="s1">&#39;Hello, World!&#39;</span> <span class="c1"># (5)!</span>
-</span></code></pre></div>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">app.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">6</a></span>
+<span class="normal"><a href="#__codelineno-0-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">flask</span><span class="w"> </span><span class="kn">import</span> <span class="n">Flask</span> <span class="c1"># (1)!</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span> <span class="c1"># (2)!</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span> <span class="c1"># (3)!</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">hello</span><span class="p">():</span> <span class="c1"># (4)!</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a>    <span class="k">return</span> <span class="s1">&#39;Hello, World!&#39;</span> <span class="c1"># (5)!</span>
+</span></code></pre></div></td></tr></table></div>
 <ol>
 <li>Importing the <code>Flask</code> class from the <code>flask</code> library</li>
 <li>Creating an instance of that class and passing it the name of the module. Look up <code>__name__ in python</code> for more info.</li>
 <li>This is a special function added by Flask to indicate which function should be called when someone visits <code>/</code> (i.e., the homepage). This parameter can be any route like <code>/about</code>. Look up <code>decorator functions in python</code> if you are unfamiliar with the <code>@</code> notation.</li>
-<li>We define the function that gets called. You can name this anything but make sure the name isn't already taken.</li>
+<li>Define the function that gets called. You can name this anything but make sure the name is not already taken.</li>
 <li>This string will be returned to whoever accesses the server. In a browser, this will be rendered as HTML.</li>
 </ol>
 <p>Start your app with <code>flask run</code>. It should show you in the console what URL you need to type into your browser to access the page (typically <a href="http://127.0.0.1:5000/">http://127.0.0.1:5000/</a>). This should now display "Hello, World!".</p>
@@ -837,28 +846,30 @@
 <div class="admonition warning">
 <p class="admonition-title">Troubleshooting common issues</p>
 <ul>
-<li>"Flask not found" means that either the venv is not activated or Flask is not installed.</li>
+<li>"Flask not found" means that either the virtual environment is not activated or Flask is not installed.</li>
 <li>"Port 5000 already in use" means that another app is using the port (maybe your own flask app in another terminal!). Close whatever other app is using the port or change the port of your new app with <code>flask run --port=5001</code>.</li>
 </ul>
 </div>
 <h3 id="debug-mode">Debug mode<a class="headerlink" href="#debug-mode" title="Permanent link">&para;</a></h3>
-<p>You can enable debug mode for your application during development by running <code>flask run --debug</code>. You should never use this in production or submissions!</p>
-<p>Debug mode has two advantages for your development process:
-- <strong>Hot reload:</strong> It automatically restarts the server when you save changes to your code.
-- <strong>Detailed errors:</strong> It shows helpful details in the browser when something goes wrong.</p>
+<p>You can enable debug mode for your application during development by running <code>flask run --debug</code>. Never use this in production or submissions!</p>
+<p>Debug mode has two advantages for your development process:</p>
+<ul>
+<li><strong>Hot reload:</strong> It automatically restarts the server when you save changes to your code.</li>
+<li><strong>Detailed errors:</strong> It shows helpful details in the browser when something goes wrong.</li>
+</ul>
 <h2 id="working-with-templates">Working with templates<a class="headerlink" href="#working-with-templates" title="Permanent link">&para;</a></h2>
 <p>Templates allow you to separate your Python code from your HTML. Instead of embedding HTML directly in your Python code, you create separate HTML files that Flask renders dynamically. Flask uses <strong>Jinja2</strong>, a powerful templating engine that allows you to include Python-like expressions in your HTML. The Jinja-specific code blocks that differ from standard HTML are indicated by <code>{% ... %}</code>.</p>
 <details class="info">
 <summary>Why use templates?</summary>
 <ul>
 <li>Separates logic from presentation (cleaner code)  </li>
-<li>Enables template inheritance (DRY principle)  </li>
+<li>Enables template inheritance (no repeat code)  </li>
 <li>Makes it easy to maintain consistent layouts  </li>
 <li>Allows dynamic content insertion</li>
 </ul>
 </details>
 <h3 id="project-structure">Project structure<a class="headerlink" href="#project-structure" title="Permanent link">&para;</a></h3>
-<p>We add a folder which contains our HTML templates. It has to be in this exact location and has to be named <code>tamplates</code>:</p>
+<p>Add a folder which contains your HTML templates. It has to be in this exact location and has to be named <code>templates</code>:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>my_flask_project/
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>├── venv/
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>└── my_flask_app/
@@ -870,12 +881,8 @@
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        └── about.html
 </span></code></pre></div>
 <h3 id="base-templates">Base templates<a class="headerlink" href="#base-templates" title="Permanent link">&para;</a></h3>
-<p>A base template contains the common HTML structure that several (or all) pages share. Think of it like abstracting shared functionality into a superclass. Other templates extend/inherit this base and fill in specific content blocks.</p>
+<p>A base template contains the common HTML structure that several (or all) pages share. For example, all pages of your web app will likely have a consistent header and footer. Instead of writing that code multiple times, you will put such shared functionality into a base template. These templates are not full pages and will never be rendered on their own. Other templates extend/inherit these base templates and fill in the placeholder content blocks.</p>
 <p>Copy this code into <code>templates/base.html</code> and make sure you understand every single line of it:</p>
-<ul>
-<li><code>{% block parameter_name %}{% endblock %}</code> is a placeholder that will be filled by the child template</li>
-<li><code>{{ url_for('resource_name') }}</code> is a function that the server will replace with the url like <code>/about</code>.</li>
-</ul>
 <div class="language-html highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">templates/base.html</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
@@ -926,47 +933,65 @@
 </span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24"></a><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 </span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25"></a><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </span></code></pre></div></td></tr></table></div>
-<h3 id="template-inheritance">Template inheritance<a class="headerlink" href="#template-inheritance" title="Permanent link">&para;</a></h3>
-<p>Child templates can now extend the base template and fill in the content blocks.</p>
 <ul>
-<li><code>{% extends "base.html" %}</code> means that we are using the base template as a starting point.</li>
+<li><code>{% block parameter_name %}{% endblock %}</code> is a placeholder that will be filled by the child template</li>
+<li><code>{{ url_for('resource_name') }}</code> is a function that the server will replace with the url like <code>/about</code>.</li>
+</ul>
+<h3 id="template-inheritance">Template inheritance<a class="headerlink" href="#template-inheritance" title="Permanent link">&para;</a></h3>
+<p>Child templates extend the base template and fill in the content block placeholders.</p>
+<ul>
+<li><code>{% extends "base.html" %}</code> means the child template is using the base template as a starting point.</li>
 <li><code>{% block parameter_name %}...{% endblock %}</code> fills the placeholder with the content enclosed within the block.</li>
 </ul>
 <p>Copy this code into <code>templates/home.html</code> and <code>templates/about.html</code> respectively and make sure you understand every single line: </p>
-<div class="language-html highlight"><span class="filename">templates/home.html</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>{% extends &quot;base.html&quot; %}
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>{% block title %}Home{% endblock %}
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>{% block content %}
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Welcome to My Flask App<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>This is a simple example using Flask templates with Bootstrap.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>{% endblock %}
-</span></code></pre></div>
-<div class="language-html highlight"><span class="filename">templates/about.html</span><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>{% extends &quot;base.html&quot; %}
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>{% block title %}About{% endblock %}
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>{% block content %}
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>This is the About Page<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>This is a simple example showing how template inheritance allows you to reuse common layout elements across multiple pages.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>{% endblock %}
-</span></code></pre></div>
-<p>Notice how you don't have to write the same code for the navigation links and the footer again for the home and about pages. This saves you time, especially if you want to make changes to that code later.</p>
+<div class="language-html highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">templates/home.html</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span>
+<span class="normal"><a href="#__codelineno-3-5">5</a></span>
+<span class="normal"><a href="#__codelineno-3-6">6</a></span>
+<span class="normal"><a href="#__codelineno-3-7">7</a></span>
+<span class="normal"><a href="#__codelineno-3-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>{% extends &quot;base.html&quot; %}
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a>{% block title %}Home{% endblock %}
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a>{% block content %}
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Welcome to My Flask App<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>This is a simple example using Flask templates with Bootstrap.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a>{% endblock %}
+</span></code></pre></div></td></tr></table></div>
+<div class="language-html highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">templates/about.html</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span>
+<span class="normal"><a href="#__codelineno-4-6">6</a></span>
+<span class="normal"><a href="#__codelineno-4-7">7</a></span>
+<span class="normal"><a href="#__codelineno-4-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a>{% extends &quot;base.html&quot; %}
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a>{% block title %}About{% endblock %}
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a>{% block content %}
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>This is the About Page<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>This is a simple example showing how template inheritance allows you to reuse common layout elements across multiple pages.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8"></a>{% endblock %}
+</span></code></pre></div></td></tr></table></div>
+<p>Notice how you do not have to write the same code for the navigation links and the footer again for the home and about pages. This saves you time, especially if you want to make changes to that code later.</p>
 <h3 id="using-templates-in-your-app">Using templates in your app<a class="headerlink" href="#using-templates-in-your-app" title="Permanent link">&para;</a></h3>
-<p>Now, we make a small change to our <code>app.py</code> to render and return the HTML code instead of "Hello, World".</p>
+<p>Now make the following small change to your <code>app.py</code> to render and return the HTML code instead of "Hello, World".</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">flask</span><span class="w"> </span><span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">home</span><span class="p">():</span> <span class="c1"># (2)!</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">home</span><span class="p">():</span>
 </span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;home.html&quot;</span><span class="p">)</span>
 </span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
 </span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/about&quot;</span><span class="p">)</span>
 </span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">about</span><span class="p">():</span>
 </span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;about.html&quot;</span><span class="p">)</span>
 </span></code></pre></div>
-<p>The <code>render_template</code> function from the Flask package converts our HTML/Jinja templates into HTML responses. If you now start your app and visit the URL, you should see our simple website. You can click on the "about" link at the top to go to the other website.</p>
+<p>The <code>render_template</code> function from the Flask package converts Jinja templates into HTML responses. When you now start your app and visit the URL, you should see the simple website. Click on the "about" link at the top to go to the other page.</p>
 <figure>
 <img alt="Unstyled Homepage" src="../assets/images/ch1_template_no_bootstrap_home.png" />
 </figure>
@@ -974,44 +999,17 @@
 <img alt="Unstyled About page" src="../assets/images/ch1_template_no_bootstrap_about.png" />
 </figure>
 <h2 id="styling-with-bootstrap">Styling with Bootstrap<a class="headerlink" href="#styling-with-bootstrap" title="Permanent link">&para;</a></h2>
-<p>Next, we are going to work on making these websites look better. Bootstrap is a popular CSS framework that helps you create professional-looking, responsive websites quickly. You will use Bootstrap-Flask for easy integration.</p>
-<p>Install the required package with <code>pip install Bootstrap-Flask</code>.</p>
-<p>Add bootstrap to your project by integrating these lines:</p>
-<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">app.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-6-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-6-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-6-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-6-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-6-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-6-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-6-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-6-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-6-10">10</a></span>
-<span class="normal"><a href="#__codelineno-6-11">11</a></span>
-<span class="normal"><a href="#__codelineno-6-12">12</a></span>
-<span class="normal"><a href="#__codelineno-6-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">flask</span><span class="w"> </span><span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="hll"><span class="kn">from</span><span class="w"> </span><span class="nn">flask_bootstrap</span><span class="w"> </span><span class="kn">import</span> <span class="n">Bootstrap5</span>
-</span></span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="hll"><span class="n">bootstrap</span> <span class="o">=</span> <span class="n">Bootstrap5</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
-</span></span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6"></a>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">home</span><span class="p">():</span>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9"></a>    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;home.html&quot;</span><span class="p">)</span>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10"></a>
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11"></a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/about&quot;</span><span class="p">)</span>
-</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12"></a><span class="k">def</span><span class="w"> </span><span class="nf">about</span><span class="p">():</span>
-</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13"></a>    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;about.html&quot;</span><span class="p">)</span>
-</span></code></pre></div></td></tr></table></div>
-<p>This allows us to use class names for which bootstrap has already predefined styles. Replace the code in <code>/templates/base.html</code> and <code>/templates/home.html</code> with the following, respectively.</p>
-<ul>
-<li><code>{{ bootstrap.load_css() }}</code> loads the default CSS from a content-delivery network (CDN)</li>
-<li><code>{{ bootstrap.load_js() }}</code> does the same with JavaScript</li>
-<li>class names like <code>bg-dark text-light mt-5 py-3</code> are now shortcuts to styling colours, fonts, and spacings (e.g., <code>mt</code> = margin top)</li>
-</ul>
+<p>Bootstrap is a popular library of predefined styles. You will use these styles to quickly make your websites look better.</p>
+<p>Bootstrap works by defining utility CSS classes that you can assign to your HTML elements. For example, instead of assigning a class of <code>dark-mode-paragraph</code> and then writing its specific styles in a <code>.css</code> file, you can use Bootstrap's predefined class names. These class names like <code>bg-dark text-light mt-5 py-3</code> are now shortcuts to styling colors, fonts, and spacings (e.g., <code>mt</code> = margin top).</p>
 <div class="admonition info">
-<p class="admonition-title">Find all your style options and premade components at <a href="https://getbootstrap.com/">https://getbootstrap.com/</a>!</p>
+<p class="admonition-title">Find all your style options and premade components at <a href="https://getbootstrap.com/">getbootstrap.com</a>!</p>
 </div>
+<p>Your app will retrieve this predefined code from a content delivery network (CDN). This means that your app is telling every browser that visits your website to load someone else's code that you have no control over. This is convenient but can pose a security risk.</p>
+<p>Get the link to the latest CSS (styles) and JS (code) from <a href="https://getbootstrap.com/docs/5.0/getting-started/introduction">getbootstrap.com/docs/5.0/getting-started/introduction</a>. These will look something like this:</p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>As you can see, you include these external files by linking them just like you would link a local stylesheet. The integrity attribute ensures that the file has not been tempered with. You can visit the link in the <code>href</code> attribute to check out the code that you are loading.</p>
+<p>Replace the code in <code>/templates/base.html</code> and <code>/templates/home.html</code> with the following, respectively. It includes the two links you have retrieved from the website and already applies many utility classes to the elements.</p>
 <div class="language-html highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">/templates/base.html</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
@@ -1055,7 +1053,7 @@
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
 </span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a>    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span> <span class="p">/&gt;</span>
 </span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5"></a>    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1.0&quot;</span> <span class="p">/&gt;</span>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="hll">    {{ bootstrap.load_css() }}
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="hll">    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;</span>
 </span></span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7"></a>    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>{% block title %}{% endblock %} - My Flask App<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
 </span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8"></a><span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
 </span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
@@ -1086,7 +1084,7 @@
 </span><span id="__span-7-34"><a id="__codelineno-7-34" name="__codelineno-7-34"></a>            <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;text-center mb-0&quot;</span><span class="p">&gt;</span>© 2026 My Flask App<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 </span><span id="__span-7-35"><a id="__codelineno-7-35" name="__codelineno-7-35"></a>        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </span><span id="__span-7-36"><a id="__codelineno-7-36" name="__codelineno-7-36"></a>    <span class="p">&lt;/</span><span class="nt">footer</span><span class="p">&gt;</span>
-</span><span id="__span-7-37"><a id="__codelineno-7-37" name="__codelineno-7-37"></a><span class="hll">    {{ bootstrap.load_js() }}
+</span><span id="__span-7-37"><a id="__codelineno-7-37" name="__codelineno-7-37"></a><span class="hll">    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span></span><span id="__span-7-38"><a id="__codelineno-7-38" name="__codelineno-7-38"></a><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 </span><span id="__span-7-39"><a id="__codelineno-7-39" name="__codelineno-7-39"></a><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </span></code></pre></div></td></tr></table></div>
@@ -1158,10 +1156,14 @@
 </span></code></pre></div></td></tr></table></div>
 <p>With this code your homepage now looks like this:</p>
 <figure>
-<img alt="Homepage with bootstrap styling" src="../assets/images/ch1_template_bootstrap_home.png" />
+<img alt="Homepage with Bootstrap styling" src="../assets/images/ch1_template_bootstrap_home.png" />
 </figure>
+<details class="info">
+<summary>If you like Bootstrap, you might want to check out its Python package for future projects</summary>
+<p>Injecting the Bootstrap styles through Python, Flask, and Jinja can make parts of your code a little bit cleaner. You can look into it at <a href="https://bootstrap-flask.readthedocs.io/en/stable/">bootstrap-flask.readthedocs.io</a>. For this class, you are required to use the CDN link instead of the Python package.</p>
+</details>
 <h2 id="adding-custom-static-files-css-javascript">Adding custom static files (CSS &amp; JavaScript)<a class="headerlink" href="#adding-custom-static-files-css-javascript" title="Permanent link">&para;</a></h2>
-<p>If you ever want to add additional styling instructions or client-side code that is not included in bootstrap, then you can link custom <code>.css</code> and <code>.js</code> files.</p>
+<p>If you ever need to add additional styling instructions or client-side code that is not included in Bootstrap, then you can link custom <code>.css</code> and <code>.js</code> files.</p>
 <p>Create the following two files in new folder and place the code below into them. Your final folder structure should look like this. The new folders and files should be named and placed exactly like this:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>my_flask_project/
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>├── venv/
@@ -1245,7 +1247,7 @@
 <li><code>&lt;link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"&gt;</code> in the <code>head</code> of your template.</li>
 <li><code>&lt;script src="{{ url_for('static', filename='js/script.js') }}"&gt;&lt;/script&gt;</code> at the end of the <code>body</code> of the template.</li>
 </ul>
-<p>You can include them in the specific child template if only that one needs it or in the base template if all pages need it. Note that you can only overwrite the default bootstrap css/js if the link to your custom file comes <em>after</em> (i.e., in any line below) the <code>{{ bootstrap.load_css() }}</code>, for example.</p>
+<p>You can include them in the specific child template if only that one needs it or in the base template if all pages need it. Note that you can only overwrite the default Bootstrap css/js if the link to your custom file comes <em>after</em> (i.e., in any line below) the linked Bootstrap code.</p>
 <div class="chapter-nav">
 <p><a href="../chapter-0/">Previous</a> |
 <a href="../">Home</a> |

@@ -62,7 +62,7 @@ Python is the programming language that you will primarily use in this class.
 
 Visual Studio Code is the integrated developer environment that you will use for this class.
 
-- Download the installer from [code.visualstudio.com](https://code.visualstudio.com`).
+- Download the installer from [code.visualstudio.com](https://code.visualstudio.com).
 - Install the application on your computer.
 - Install the official Microsoft [Python extension for Visual Studio code](https://marketplace.visualstudio.com/items?itemName=ms-python.python) from the extensions marketplace.
 
@@ -75,7 +75,7 @@ You will use Git for version management and GitHub for code sharing, collaborati
 ??? info "What is the difference between Git and GitHub?"
     Git is a local version control system for tracking code changes, while GitHub is one of several cloud platforms that hosts code repositories and add collaboration features. Git comes with the installation of the GitHub Desktop client.
 
-1. Download GitHub Desktop from [desktop.github.com](desktop.github.com).
+1. Download GitHub Desktop from [desktop.github.com](https://desktop.github.com).
 2. Install the application on your computer.
 3. If you do not yet have a GitHub account with your ASU email, create one at [github.com](https://github.com).
 4. Open the GitHub Desktop and sign in with your GitHub account.
@@ -155,7 +155,7 @@ Replace `package-name` with whatever package you want to install
 ??? info "How to verify your package installation"
     You can verify that your installation worked by listing all installed packages with `pip list`. This will likely show more than just the one you installed because a package might install its dependencies as well. For example, installing Flask (which we will introduce in the next chapter) automatically installs dependencies such as Wekzeug and Jinja.
 
-You can usually find documentation and example snippets for these packages at [https://pypi.org/](https://pypi.org/).
+You can usually find documentation and example snippets for these packages at [pypi.org](https://pypi.org/).
 
 
 
@@ -185,7 +185,7 @@ __pycache__
 
 To add collaborators:
 
-1. Go to your repository on [github.com](github.com).
+1. Go to your repository on [github.com](https://github.com).
 2. Click "Settings" and then "Manage access".
 3. Click "Invite a collaborator".
 4. Enter their GitHub username and send the invitation.
