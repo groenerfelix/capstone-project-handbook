@@ -65,6 +65,7 @@ pre {
     .md-header,
     .md-footer,
     .md-nav,
+    .md-code__nav,
     .chapter-nav {
         display: none;
     }

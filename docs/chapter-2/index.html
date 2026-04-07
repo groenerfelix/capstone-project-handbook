@@ -392,10 +392,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#creating-the-database-in-mysql-workbench" class="md-nav__link">
+  <a href="#creating-a-database-in-mysql-workbench" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Creating the database in MySQL Workbench
+        Creating a database in MySQL Workbench
       
     </span>
   </a>
@@ -745,10 +745,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#creating-the-database-in-mysql-workbench" class="md-nav__link">
+  <a href="#creating-a-database-in-mysql-workbench" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Creating the database in MySQL Workbench
+        Creating a database in MySQL Workbench
       
     </span>
   </a>
@@ -939,15 +939,15 @@
 <a href="../chapter-3/">Next</a></p>
 </div>
 <h1 id="chapter-2-mysql-database-integration">Chapter 2: MySQL Database Integration<a class="headerlink" href="#chapter-2-mysql-database-integration" title="Permanent link">&para;</a></h1>
-<p>As the database for this project you will you MySQL. This chapter shows you how to set up your local development server, how to access it in Flask, and basic operations.</p>
+<p>You will use MySQL as the database for this project. This chapter shows you how to set up your local development server, how to access it in Flask, and basic operations.</p>
 <h2 id="installing-mysql">Installing MySQL<a class="headerlink" href="#installing-mysql" title="Permanent link">&para;</a></h2>
 <p>You will only need to go through this installation once. After that, you will create a new database for each project.</p>
 <h3 id="windows-installation">Windows Installation<a class="headerlink" href="#windows-installation" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Go to <a href="https://dev.mysql.com/downloads">dev.mysql.com/downloads</a>.</li>
-<li>Download 'MySQL Installer for Windows' (mysql-installer-community). </li>
+<li>Download 'MySQL Installer for Windows' (<code>mysql-installer-community</code>). </li>
 <li>Run the installer and select 'Custom' installation.</li>
-<li>Select 'MySQL Server' and 'MySQL Workbench' from the products list.</li>
+<li>Select 'MySQL Server' <strong><em>and</em></strong> 'MySQL Workbench' from the products list.</li>
 <li>Follow the wizard to complete installation.</li>
 <li>Set a root password and remember it!</li>
 </ol>
@@ -974,12 +974,12 @@
 <div class="admonition info">
 <p class="admonition-title">What are MySQL Server and Workbench?</p>
 <ul>
-<li>The server is what holds your databases, tables, entries.</li>
-<li>The workbench is a program that you will use to look at the tables and verify that your flask app successfully stored data there.  </li>
+<li>The Server is what holds your databases, tables, entries.</li>
+<li>The Workbench is a program that you will use to look at the tables and verify that your flask app successfully stored data there.  </li>
 </ul>
 </div>
-<h2 id="creating-the-database-in-mysql-workbench">Creating the database in MySQL Workbench<a class="headerlink" href="#creating-the-database-in-mysql-workbench" title="Permanent link">&para;</a></h2>
-<p>Open the MySQL Workbench program and connect to your server (local instance) with the password you just created.</p>
+<h2 id="creating-a-database-in-mysql-workbench">Creating a database in MySQL Workbench<a class="headerlink" href="#creating-a-database-in-mysql-workbench" title="Permanent link">&para;</a></h2>
+<p>You will create a new database for each project. To create a new database, open the MySQL Workbench program and connect to your server (local instance) with the password you set during the MySQL installation.</p>
 <figure>
 <img alt="" src="../assets/images/ch2_workbench_create_schema_1.png" />
 </figure>
@@ -987,7 +987,7 @@
 <figure>
 <img alt="" src="../assets/images/ch2_workbench_create_schema_2.png" />
 </figure>
-<p>Name the database "flask_app".</p>
+<p>Name the database. Because you will create a new database for each project, give it a more unique name than "flask_app".</p>
 <figure>
 <img alt="" src="../assets/images/ch2_workbench_create_schema_3.png" />
 </figure>
@@ -995,18 +995,18 @@
 <figure>
 <img alt="" src="../assets/images/ch2_workbench_create_schema_4.png" />
 </figure>
-<p>You will not add or manipulate tables or entries through workbench. The next sections will show you how to do that in python.</p>
+<p>You will not add or manipulate tables or entries through Workbench. The next sections will show you how to do that in Flask.</p>
 <h2 id="configuring-flask-sqlalchemy">Configuring Flask-SQLAlchemy<a class="headerlink" href="#configuring-flask-sqlalchemy" title="Permanent link">&para;</a></h2>
 <p>Flask-SQLAlchemy is an object-relational mapper (ORM) that lets you interact with databases using Python objects instead of raw SQL queries.
 Install the required packages:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip install flask flask-sqlalchemy pymysql
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>flask<span class="w"> </span>flask-sqlalchemy<span class="w"> </span>pymysql
 </span></code></pre></div>
-<p>You will later connect your flask app to the database with a code snippet similar to this:</p>
+<p>You will later connect your Flask app to the database with a code snippet similar to this:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;SQLALCHEMY_TRACK_MODIFICATIONS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;SQLALCHEMY_DATABASE_URI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;mysql+pymysql://root:mysqlrootpassword@localhost:3306/flask_app&#39;</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;SECRET_KEY&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;your-secret-key-here&#39;</span>
 </span></code></pre></div>
-<p>In the above code, <code>app</code> is the flask app instance. <code>.config['X'] = Y</code> sets a config variable X to a value Y. The imported SQLAlchemy library accesses this config to retrieve the database URI.</p>
+<p>In the above code, <code>app</code> is the Flask app instance. <code>.config['X'] = Y</code> sets a config variable X to a value Y. The imported SQLAlchemy library accesses this config to retrieve the database URI.</p>
 <p>You will need to update the exact value for your own project. The <em>database connection string</em> is constructed as follows:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>mysql+pymysql://username:password@hostname:port/database_name
 </span></code></pre></div>
@@ -1016,11 +1016,11 @@ Install the required packages:</p>
 <li><code>root</code> is the username</li>
 <li><code>password</code> is your root password</li>
 <li><code>hostname</code> and <code>port</code> are your URL (localhost during development)</li>
-<li><code>database_name</code> will be whatever you set as the project name</li>
+<li><code>database_name</code> will be whatever you set as the name when you created the database</li>
 </ul>
 <p>The secret key is used to cryptographically sign all communications. You can set it to any value. </p>
 <h2 id="creating-database-models">Creating database models<a class="headerlink" href="#creating-database-models" title="Permanent link">&para;</a></h2>
-<p>You do not create tables in the MySQL workbench. Instead, you will create tables and columns through the flask app. To create a table, you create a data model as a python class. Save the following code as your <code>app.py</code> and make sure you understand every single line of it:</p>
+<p>You do not create tables in the MySQL Workbench. Instead, you will create tables and columns through the Flask app. To create a table, you create a data model as a Python class. Save the following code as your <code>app.py</code> and make sure you understand every single line of it:</p>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">app.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
@@ -1065,7 +1065,7 @@ Install the required packages:</p>
 </ol>
 <div class="admonition info">
 <p class="admonition-title">Choose your column types carefully!</p>
-<p>Use integers for IDs because they can easily be incremented and searched. Set them as primary key so that you can reference users in other tables. Think about which other columns must be unique and non-null. Consider limiting the length of strings. Read more about the available configurations below</p>
+<p>Use integers for IDs because they can easily be incremented and searched. Set them as primary key so that you can reference users in other tables. Think about which other columns have to be unique and non-null. Consider limiting the length of strings. Read more about the available configurations below</p>
 </div>
 <h3 id="sqlalchemy-column-options">SQLAlchemy column options<a class="headerlink" href="#sqlalchemy-column-options" title="Permanent link">&para;</a></h3>
 <p>SQLAlchemy supports these common datatypes for columns:</p>
@@ -1120,7 +1120,7 @@ Install the required packages:</p>
 <h3 id="flask-shell-operations">Flask Shell Operations<a class="headerlink" href="#flask-shell-operations" title="Permanent link">&para;</a></h3>
 <p>You can interact with your database directly from the Flask shell. This is useful for testing and debugging. In this command-line interface you write python code line by line into your terminal.</p>
 <ol>
-<li>Start the flask shell with <code>flask shell</code> instead of <code>flask run</code> to start your app. This allows you to continue working in the terminal.</li>
+<li>Start the Flask shell with <code>flask shell</code> instead of <code>flask run</code> to start your app. This allows you to continue working in the terminal.</li>
 <li>
 <p>Create a new user</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nv">new_user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>User<span class="o">(</span><span class="nv">username</span><span class="o">=</span><span class="s1">&#39;john&#39;</span>,<span class="w"> </span><span class="nv">email</span><span class="o">=</span><span class="s1">&#39;john@example.com&#39;</span><span class="o">)</span><span class="w"> </span><span class="c1"># (1)!</span>
@@ -1199,18 +1199,18 @@ Instead of <code>.all()</code> users you could query with filters (e.g., <code>.
 </span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16"></a>
 </span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17"></a><span class="k">with</span> <span class="n">app</span><span class="o">.</span><span class="n">app_context</span><span class="p">():</span>
 </span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18"></a>    <span class="n">db</span><span class="o">.</span><span class="n">create_all</span><span class="p">()</span>
-</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19"></a><span class="hll">
-</span></span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20"></a><span class="hll"><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19"></a>
+</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20"></a><span class="hll"><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
 </span></span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21"></a><span class="hll"><span class="k">def</span><span class="w"> </span><span class="nf">index</span><span class="p">():</span>
 </span></span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22"></a><span class="hll">    <span class="n">users</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="c1"># (1)!</span>
-</span></span><span id="__span-6-23"><a id="__codelineno-6-23" name="__codelineno-6-23"></a>    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;index.html&#39;</span><span class="p">,</span> <span class="n">users</span><span class="o">=</span><span class="n">users</span><span class="p">)</span> <span class="c1"># (2)!</span>
-</span></code></pre></div></td></tr></table></div>
+</span></span><span id="__span-6-23"><a id="__codelineno-6-23" name="__codelineno-6-23"></a><span class="hll">    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;index.html&#39;</span><span class="p">,</span> <span class="n">users</span><span class="o">=</span><span class="n">users</span><span class="p">)</span> <span class="c1"># (2)!</span>
+</span></span></code></pre></div></td></tr></table></div>
 <ol>
 <li>This retrieves all the entries from the <code>User</code> table</li>
 <li>This renders the template and passes the retrieved User objects to the template.</li>
 </ol>
-<p>This server only has one route (<code>/</code>) and needs a new template. The function is already passing the <code>users</code> variable to the template. Create the <code>index.html</code> template as follows and see how it uses the passed variable.</p>
-<div class="language-html highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">templates/index.html</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
+<p>This server only has one route (<code>/</code>) and needs a new template. The function is already passing the <code>users</code> variable to the template. Create the <code>home.html</code> template as follows and see how it uses the passed variable.</p>
+<div class="language-html highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">templates/home.html</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
 <span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
@@ -1244,7 +1244,7 @@ Instead of <code>.all()</code> users you could query with filters (e.g., <code>.
 </span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16"></a><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 </span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17"></a><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </span></code></pre></div></td></tr></table></div>
-<p>With this set up, you have another way of seeing the changes you make to the table, either through the flask shell or the methods that will be introduced below. Note that the list only refreshes on reload.</p>
+<p>With this set up, you have another way of seeing the changes you make to the table, either through the Flask shell or the methods that will be introduced below. Note that the list only refreshes on reload.</p>
 <h3 id="flash-messages">Flash messages<a class="headerlink" href="#flash-messages" title="Permanent link">&para;</a></h3>
 <p>Flash messages are Flask's way of sending notifications to the browser to be displayed to the user (e.g., for errors or confirmations). Insert the following HTML snippet wherever you want the notifications to pop up (e.g., above or below the list of users). Read it thoroughly to make sure you understand every line.</p>
 <div class="language-html highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="cm">&lt;!-- Flash messages --&gt;</span>
@@ -1257,14 +1257,14 @@ Instead of <code>.all()</code> users you could query with filters (e.g., <code>.
 </span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>{% endwith %}
 </span></code></pre></div>
 <ul>
-<li><code>get_flashed_messages</code> is a function provided by flask to retrieved queued notifications.</li>
+<li><code>get_flashed_messages</code> is a function provided by Flask to retrieved queued notifications.</li>
 <li>Set <code>with_categories</code> to true to include the type (e.g., error, success) in the messages.</li>
 <li>Iterate through the list of queued messages and create one <code>&lt;div&gt;</code> per message.</li>
 <li>These messages can be styled with the assigned css classes like <code>alert</code> and <code>alert-error</code>.</li>
 </ul>
-<p>You can send messages to the client by adding <code>flash('Sorry, an error occurred', 'error')</code> on your server where the first string is the message and the second string the type. You will find examples of these in the following sections. Make sure to import the <code>flash</code> function from the flask package at the top of your script!</p>
+<p>You can send messages to the client by adding <code>flash('Sorry, an error occurred', 'error')</code> on your server where the first string is the message and the second string the type. You will find examples of these in the following sections. Make sure to import the <code>flash</code> function from the Flask package at the top of your script!</p>
 <h2 id="basic-database-operations-crud">Basic database operations (CRUD)<a class="headerlink" href="#basic-database-operations-crud" title="Permanent link">&para;</a></h2>
-<p>The four fundamental database operations as often called by their acronym "CRUD": create, read, update, delete. Below you will find implementations for each of these operations as different routes in the flask application.</p>
+<p>The four fundamental database operations as often called by their acronym "CRUD": create, read, update, delete. Below you will find implementations for each of these operations as different routes in the Flask application.</p>
 <p>General explanations:</p>
 <ul>
 <li>Routes containing strings like <code>&lt;int:user_id&gt;</code> or <code>&lt;string:email&gt;</code> allow you to add parameters to your route. The format is <code>&lt;datatype:variable_name&gt;</code>.</li>
@@ -1333,14 +1333,14 @@ Instead of <code>.all()</code> users you could query with filters (e.g., <code>.
 </span></code></pre></div>
 <h2 id="putting-it-all-together">Putting it all together<a class="headerlink" href="#putting-it-all-together" title="Permanent link">&para;</a></h2>
 <p>With the code snippets above you can now create a server that lets clients manipulate the database. The complete <code>app.py</code> will then look as follows. </p>
-<details class="info">
-<summary>Note the required <code>redirect</code>, <code>url_for</code>, and <code>flash</code> imports from the flask package in line 1</summary>
+<div class="admonition info">
+<p class="admonition-title">Note the required <code>redirect</code>, <code>url_for</code>, and <code>flash</code> imports from the flask package in line 1</p>
 <ul>
 <li><code>redirect</code> lets you send the client to another route (e.g., to the user profile page after adding a new user).</li>
-<li><code>url_for</code> gives you the url for a route (e.g., index); you have used these in the previous section already in the html templates.</li>
+<li><code>url_for</code> gives you the url for a route (e.g., index); you have used these in the previous section already in the HTML templates.</li>
 <li><code>flash</code> is used to send pop-up notifications from the server to the client.</li>
 </ul>
-</details>
+</div>
 <div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">app.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-13-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-13-3"> 3</a></span>
@@ -1405,8 +1405,8 @@ Instead of <code>.all()</code> users you could query with filters (e.g., <code>.
 <span class="normal"><a href="#__codelineno-13-62">62</a></span>
 <span class="normal"><a href="#__codelineno-13-63">63</a></span>
 <span class="normal"><a href="#__codelineno-13-64">64</a></span>
-<span class="normal"><a href="#__codelineno-13-65">65</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">flask</span><span class="w"> </span><span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">url_for</span><span class="p">,</span> <span class="n">flash</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">flask_sqlalchemy</span><span class="w"> </span><span class="kn">import</span> <span class="n">SQLAlchemy</span>
+<span class="normal"><a href="#__codelineno-13-65">65</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="hll"><span class="kn">from</span><span class="w"> </span><span class="nn">flask</span><span class="w"> </span><span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">url_for</span><span class="p">,</span> <span class="n">flash</span>
+</span></span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">flask_sqlalchemy</span><span class="w"> </span><span class="kn">import</span> <span class="n">SQLAlchemy</span>
 </span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3"></a>
 </span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 </span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5"></a>
@@ -1427,7 +1427,7 @@ Instead of <code>.all()</code> users you could query with filters (e.g., <code>.
 </span><span id="__span-13-20"><a id="__codelineno-13-20" name="__codelineno-13-20"></a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
 </span><span id="__span-13-21"><a id="__codelineno-13-21" name="__codelineno-13-21"></a><span class="k">def</span><span class="w"> </span><span class="nf">index</span><span class="p">():</span>
 </span><span id="__span-13-22"><a id="__codelineno-13-22" name="__codelineno-13-22"></a>    <span class="n">users</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> 
-</span><span id="__span-13-23"><a id="__codelineno-13-23" name="__codelineno-13-23"></a>    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;index.html&#39;</span><span class="p">,</span> <span class="n">users</span><span class="o">=</span><span class="n">users</span><span class="p">)</span>
+</span><span id="__span-13-23"><a id="__codelineno-13-23" name="__codelineno-13-23"></a>    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;home.html&#39;</span><span class="p">,</span> <span class="n">users</span><span class="o">=</span><span class="n">users</span><span class="p">)</span>
 </span><span id="__span-13-24"><a id="__codelineno-13-24" name="__codelineno-13-24"></a>
 </span><span id="__span-13-25"><a id="__codelineno-13-25" name="__codelineno-13-25"></a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/add_user/&lt;string:username&gt;/&lt;string:email&gt;&#39;</span><span class="p">)</span> 
 </span><span id="__span-13-26"><a id="__codelineno-13-26" name="__codelineno-13-26"></a><span class="k">def</span><span class="w"> </span><span class="nf">add_user</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">email</span><span class="p">):</span>
@@ -1480,7 +1480,7 @@ Instead of <code>.all()</code> users you could query with filters (e.g., <code>.
 <div class="admonition info">
 <p class="admonition-title">Next steps to try it out!</p>
 <ul>
-<li>Try out he update and delete endpoints as well.</li>
+<li>Try out the update and delete endpoints as well.</li>
 <li>Check your manipulations in the MySQL Workbench.</li>
 <li>Try to cause an error message to show up.</li>
 <li>Try adding Bootstrap and custom styling to the flash notifications.</li>
