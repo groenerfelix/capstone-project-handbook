@@ -9,7 +9,7 @@
 
 # Chapter 2: MySQL Database Integration
 
-As the database for this project you will you MySQL. This chapter shows you how to set up your local development server, how to access it in Flask, and basic operations.
+You will use MySQL as the database for this project. This chapter shows you how to set up your local development server, how to access it in Flask, and basic operations.
 
 ## Installing MySQL
 
@@ -18,9 +18,9 @@ You will only need to go through this installation once. After that, you will cr
 ### Windows Installation
 
 1. Go to [dev.mysql.com/downloads](https://dev.mysql.com/downloads).
-2. Download 'MySQL Installer for Windows' (mysql-installer-community). 
+2. Download 'MySQL Installer for Windows' (`mysql-installer-community`). 
 3. Run the installer and select 'Custom' installation.
-4. Select 'MySQL Server' and 'MySQL Workbench' from the products list.
+4. Select 'MySQL Server' ***and*** 'MySQL Workbench' from the products list.
 5. Follow the wizard to complete installation.
 6. Set a root password and remember it!
 
@@ -41,12 +41,12 @@ You will only need to go through this installation once. After that, you will cr
 !!! warning "If you lose your MySQL root password, you have to reset it through a recovery process."
 
 !!! info "What are MySQL Server and Workbench?"
-    - The server is what holds your databases, tables, entries.
-    - The workbench is a program that you will use to look at the tables and verify that your flask app successfully stored data there.  
+    - The Server is what holds your databases, tables, entries.
+    - The Workbench is a program that you will use to look at the tables and verify that your flask app successfully stored data there.  
 
-## Creating the database in MySQL Workbench
+## Creating a database in MySQL Workbench
 
-Open the MySQL Workbench program and connect to your server (local instance) with the password you just created.
+You will create a new database for each project. To create a new database, open the MySQL Workbench program and connect to your server (local instance) with the password you set during the MySQL installation.
 
 <figure markdown="span">
 ![](assets/images/ch2_workbench_create_schema_1.png)
@@ -58,7 +58,7 @@ Then, on the left, switch to "Schemas", right click, and create a new schema.
 ![](assets/images/ch2_workbench_create_schema_2.png)
 </figure>
 
-Name the database "flask_app".
+Name the database. Because you will create a new database for each project, give it a more unique name than "flask_app".
 
 <figure markdown="span">
 ![](assets/images/ch2_workbench_create_schema_3.png)
@@ -70,7 +70,7 @@ MySQL Workbench will create the simple SQL script that creates the new database 
 ![](assets/images/ch2_workbench_create_schema_4.png)
 </figure>
 
-You will not add or manipulate tables or entries through workbench. The next sections will show you how to do that in python.
+You will not add or manipulate tables or entries through Workbench. The next sections will show you how to do that in Flask.
 
 
 ## Configuring Flask-SQLAlchemy
@@ -78,11 +78,11 @@ You will not add or manipulate tables or entries through workbench. The next sec
 Flask-SQLAlchemy is an object-relational mapper (ORM) that lets you interact with databases using Python objects instead of raw SQL queries.
 Install the required packages:
 
-```
+```bash
 pip install flask flask-sqlalchemy pymysql
 ```
 
-You will later connect your flask app to the database with a code snippet similar to this:
+You will later connect your Flask app to the database with a code snippet similar to this:
 
 ```python
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -90,7 +90,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:mysqlrootpassword@
 app.config['SECRET_KEY'] = 'your-secret-key-here'
 ```
 
-In the above code, `app` is the flask app instance. `.config['X'] = Y` sets a config variable X to a value Y. The imported SQLAlchemy library accesses this config to retrieve the database URI.
+In the above code, `app` is the Flask app instance. `.config['X'] = Y` sets a config variable X to a value Y. The imported SQLAlchemy library accesses this config to retrieve the database URI.
 
 You will need to update the exact value for your own project. The *database connection string* is constructed as follows:
 
@@ -103,13 +103,13 @@ mysql+pymysql://username:password@hostname:port/database_name
 - `root` is the username
 - `password` is your root password
 - `hostname` and `port` are your URL (localhost during development)
-- `database_name` will be whatever you set as the project name
+- `database_name` will be whatever you set as the name when you created the database
 
 The secret key is used to cryptographically sign all communications. You can set it to any value. 
 
 ## Creating database models
 
-You do not create tables in the MySQL workbench. Instead, you will create tables and columns through the flask app. To create a table, you create a data model as a python class. Save the following code as your `app.py` and make sure you understand every single line of it:
+You do not create tables in the MySQL Workbench. Instead, you will create tables and columns through the Flask app. To create a table, you create a data model as a Python class. Save the following code as your `app.py` and make sure you understand every single line of it:
 
 ```python title="app.py" linenums="1"
 from flask import Flask, render_template
@@ -138,7 +138,7 @@ with app.app_context():
 4. This creates all the tables when the app starts.
 
 !!! info "Choose your column types carefully!"
-    Use integers for IDs because they can easily be incremented and searched. Set them as primary key so that you can reference users in other tables. Think about which other columns must be unique and non-null. Consider limiting the length of strings. Read more about the available configurations below
+    Use integers for IDs because they can easily be incremented and searched. Set them as primary key so that you can reference users in other tables. Think about which other columns have to be unique and non-null. Consider limiting the length of strings. Read more about the available configurations below
 
 ### SQLAlchemy column options
 
@@ -165,7 +165,7 @@ You might need these common parameters for your project:
 
 You can interact with your database directly from the Flask shell. This is useful for testing and debugging. In this command-line interface you write python code line by line into your terminal.
 
-1. Start the flask shell with `flask shell` instead of `flask run` to start your app. This allows you to continue working in the terminal.
+1. Start the Flask shell with `flask shell` instead of `flask run` to start your app. This allows you to continue working in the terminal.
 2. Create a new user
 
     ```bash
@@ -210,7 +210,7 @@ You can always come back to this program whenever you are unsure about the state
 
 To create a quick visualization, put together all the snippets above in the following `app.py`. Only the highlighted lines are new.
 
-```python title="app.py" linenums="1" hl_lines="19-22"
+```python title="app.py" linenums="1" hl_lines="20-23"
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 
@@ -239,9 +239,9 @@ def index():
 1. This retrieves all the entries from the `User` table
 2. This renders the template and passes the retrieved User objects to the template.
 
-This server only has one route (`/`) and needs a new template. The function is already passing the `users` variable to the template. Create the `index.html` template as follows and see how it uses the passed variable.
+This server only has one route (`/`) and needs a new template. The function is already passing the `users` variable to the template. Create the `home.html` template as follows and see how it uses the passed variable.
 
-```html title="templates/index.html" linenums="1"
+```html title="templates/home.html" linenums="1"
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -261,7 +261,7 @@ This server only has one route (`/`) and needs a new template. The function is a
 </html>
 ```
 
-With this set up, you have another way of seeing the changes you make to the table, either through the flask shell or the methods that will be introduced below. Note that the list only refreshes on reload.
+With this set up, you have another way of seeing the changes you make to the table, either through the Flask shell or the methods that will be introduced below. Note that the list only refreshes on reload.
 
 ### Flash messages
 
@@ -278,17 +278,17 @@ Flash messages are Flask's way of sending notifications to the browser to be dis
 {% endwith %}
 ```
 
-- `get_flashed_messages` is a function provided by flask to retrieved queued notifications.
+- `get_flashed_messages` is a function provided by Flask to retrieved queued notifications.
 - Set `with_categories` to true to include the type (e.g., error, success) in the messages.
 - Iterate through the list of queued messages and create one `<div>` per message.
 - These messages can be styled with the assigned css classes like `alert` and `alert-error`.
 
-You can send messages to the client by adding `flash('Sorry, an error occurred', 'error')` on your server where the first string is the message and the second string the type. You will find examples of these in the following sections. Make sure to import the `flash` function from the flask package at the top of your script!
+You can send messages to the client by adding `flash('Sorry, an error occurred', 'error')` on your server where the first string is the message and the second string the type. You will find examples of these in the following sections. Make sure to import the `flash` function from the Flask package at the top of your script!
 
 
 ## Basic database operations (CRUD)
 
-The four fundamental database operations as often called by their acronym "CRUD": create, read, update, delete. Below you will find implementations for each of these operations as different routes in the flask application.
+The four fundamental database operations as often called by their acronym "CRUD": create, read, update, delete. Below you will find implementations for each of these operations as different routes in the Flask application.
 
 General explanations:
 
@@ -373,12 +373,12 @@ def delete_user(user_id):
 
 With the code snippets above you can now create a server that lets clients manipulate the database. The complete `app.py` will then look as follows. 
 
-??? info "Note the required `redirect`, `url_for`, and `flash` imports from the flask package in line 1"
+!!! info "Note the required `redirect`, `url_for`, and `flash` imports from the flask package in line 1"
     - `redirect` lets you send the client to another route (e.g., to the user profile page after adding a new user).
-    - `url_for` gives you the url for a route (e.g., index); you have used these in the previous section already in the html templates.
+    - `url_for` gives you the url for a route (e.g., index); you have used these in the previous section already in the HTML templates.
     - `flash` is used to send pop-up notifications from the server to the client.
 
-```python title="app.py" linenums="1"
+```python title="app.py" linenums="1" hl_lines="1"
 from flask import Flask, render_template, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 
@@ -401,7 +401,7 @@ with app.app_context():
 @app.route('/')
 def index():
     users = User.query.all() 
-    return render_template('index.html', users=users)
+    return render_template('home.html', users=users)
 
 @app.route('/add_user/<string:username>/<string:email>') 
 def add_user(username, email):
@@ -453,7 +453,7 @@ You can add a user by typing directing your browser to the URL
     The code above injects the raw python error message into the notification that is sent to the user. You should write something that is more helpful to the user.
 
 !!! info "Next steps to try it out!"
-    - Try out he update and delete endpoints as well.
+    - Try out the update and delete endpoints as well.
     - Check your manipulations in the MySQL Workbench.
     - Try to cause an error message to show up.
     - Try adding Bootstrap and custom styling to the flash notifications.
