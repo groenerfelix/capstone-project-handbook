@@ -1,170 +1,119 @@
+
 <div class="chapter-nav" markdown="1">
 
-[Previous](chapter-5.md) |
-[Home](index.md)
+[Previous](chapter-4.md) |
+[Home](index.md) |
+[Next](chapter-6.md)
 
 </div>
 
-# Chapter8: Deploying to AWS EC2
+# Chapter 6: AWS RDS Database Setup
 
 !!! danger "TODO: work in progress"
 
-## 8.1 Launching an EC2 Instance
 
-Amazon EC2 (Elastic Compute Cloud) provides virtual servers to host your Flask application. This chapter walks you through deploying your application to the cloud.
+## 7.1 Creating an RDS Instance
+
+Amazon RDS (Relational Database Service) provides a managed MySQL database in the cloud. This is essential for deploying your Flask application to production.
 
 1. Log in to the AWS Management Console  
-2. Navigate to EC2 Dashboard  
-3. Click Launch Instance  
-4. Select Ubuntu Server 20.04 LTS (or newer)  
-5. Choose t2.micro instance type (Free Tier eligible)  
-6. Configure security group with the following rules:
+2. Navigate to RDS service  
+3. Click Create Database  
+4. Select Standard Create  
+5. Choose MySQL as the engine  
+6. Select the latest MySQL version  
+7. Choose Free Tier template (if eligible)  
 
-Type | Port | Source | Purpose  
---- | --- | --- | ---  
-SSH | 22 | Your IP | Terminal access  
-HTTP | 80 | Anywhere | Web traffic  
-Custom TCP | 5000 | Anywhere | Flask development server  
+Configure Instance Settings:
 
----
-
-## 8.2 Connecting via SSH
-
-### Option 1: AWS Console (Easiest)
-
-1. In EC2 Dashboard, select your instance  
-2. Click Connect  
-3. Choose EC2 Instance Connect tab  
-4. Click Connect to open a browser-based terminal  
-
-### Option 2: Terminal/Command Prompt
-
-```
-# Make your key file readable only by you (Mac/Linux)
-chmod 400 your-key.pem
-```
-
-```
-# Connect to your instance
-ssh -i "your-key.pem" ubuntu@your-ec2-public-dns
-```
+Setting | Value | Description  
+--- | --- | ---  
+DB instance identifier | my-rds-instance | Unique name for your database  
+Master username | admin | Database administrator username  
+Master password | [strong password] | Save this securely!  
+Initial database name | flask_app | Name of your first database  
+Public access | Yes | Required for external connections  
 
 ---
 
-## 8.3 Server Setup and Dependencies
+## 7.2 Configuring Security Groups
 
-Once connected, run these commands:
+Security groups act as a firewall, controlling which IP addresses can access your database.
 
-```
-# Update system packages
-sudo apt update
-sudo apt upgrade -y
-```
+1. Navigate to EC2 > Security Groups  
+2. Find the security group associated with your RDS instance  
+3. Click Edit inbound rules  
+4. Add a new rule with the following settings:
 
-```
-# Install Python, pip, and Git
-sudo apt install python3 python3-pip git -y
-```
-
-```
-# Verify installation
-python3 --version
-pip3 --version
-git --version
-```
-
----
-
-## 8.4 Deploying Your Application
-
-```
-# Navigate to home directory
-cd /home/ubuntu
-```
-
-```
-# Clone your repository
-git clone https://github.com/your-username/your-flask-repo.git
-cd your-flask-repo
-```
-
-```
-# Install dependencies
-pip3 install -r requirements.txt
-```
-
-Sample requirements.txt:
-
-```
-flask
-flask-sqlalchemy
-pymysql
-flask-login
-flask-bcrypt
-```
-
----
-
-## 8.5 Running in Production
-
-Running the Flask Development Server:
-
-```
-# Run Flask accessible from any IP
-flask run --host=0.0.0.0 --port=5000
-```
-
-```
-# Or using Python directly
-python3 app.py
-```
-
-Access your application:
-
-Open your browser and navigate to: http://your-ec2-public-dns:5000
-
-Running in Background with Screen:
-
-By default, the Flask server stops when you close your terminal. Use 'screen' to keep it running:
-
-```
-# Install screen
-sudo apt install screen
-```
-
-```
-# Start a new screen session
-screen
-```
-
-```
-# Run your Flask app
-flask run --host=0.0.0.0 --port=5000
-```
-
-Detach from screen: Press Ctrl+A, then D  
-
-Later, reattach to see output:
-
-```
-screen -r
-```
-
-Useful Commands:
-
-Command | Description  
+Setting | Value  
 --- | ---  
-screen | Start a new screen session  
-Ctrl+A, then D | Detach from current screen  
-screen -r | Reattach to a screen session  
-screen -ls | List all screen sessions  
-exit | Close current screen session  
+Type | MySQL/Aurora  
+Port Range | 3306  
+Source | Your IP (or 0.0.0.0/0 for development only)  
 
-✓ Congratulations! Your Flask application is now running in the cloud. For production use, consider using a WSGI server like Gunicorn and a reverse proxy like Nginx.
+■■ Warning: Using 0.0.0.0/0 allows access from anywhere. Use this only for development. For production, restrict to specific IP addresses.
 
-<div class="chapter-nav" markdown="1">
+---
 
-[Previous](chapter-5.md) |
-[Home](index.md)
+## 7.3 Connecting with MySQL Workbench
 
-</div>
+### Retrieve Connection Details:
+
+1. In the RDS Dashboard, select your instance  
+2. Copy the Endpoint (e.g., my-rds-instance.xyz.us-east-1.rds.amazonaws.com)  
+3. Note the port (default: 3306)  
+
+### Connect with MySQL Workbench:
+
+1. Open MySQL Workbench  
+2. Click Database > Connect to Database  
+3. Enter the connection details:  
+   - Hostname: Your RDS endpoint  
+   - Port: 3306  
+   - Username: admin  
+   - Password: Your RDS password  
+4. Click Test Connection to verify  
+5. If successful, click OK to connect  
+
+---
+
+## 7.4 Integrating with Flask
+
+Update your Flask application to connect to the RDS database instead of localhost:
+
+config.py:
+
+```python
+import os
+DB_USERNAME = "admin"
+DB_PASSWORD = "your_rds_password"
+DB_HOST = "your-rds-endpoint.region.rds.amazonaws.com"
+DB_PORT = "3306"
+DB_NAME = "flask_app"
+SQLALCHEMY_DATABASE_URI = \
+f"mysql+pymysql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+```
+
+app.py:
+
+```python
+from flask import Flask, jsonify
+from flask_sqlalchemy import SQLAlchemy
+from config import SQLALCHEMY_DATABASE_URI
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+class User(db.Model):
+id = db.Column(db.Integer, primary_key=True)
+name = db.Column(db.String(50), nullable=False)
+@app.route('/')
+def index():
+return jsonify({'message': 'Connected to RDS MySQL!'})
+if __name__ == '__main__':
+app.run(debug=True)
+```
+
+✓ Tip: For production, store sensitive credentials in environment variables, not in your code.
+

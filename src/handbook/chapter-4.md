@@ -6,77 +6,185 @@
 
 </div>
 
+# Chapter 4: CRUD Operations with Forms and Requests
 
-# Chapter 4: Authentication and Access Control
+## Project setup
 
-Flask-Login handles user session management, making it easy to implement login/logout functionality and restrict access to certain pages. 
-Combined with role-based access control (RBAC), you can create applications where different users have different permissions.
-
-You need to install a couple of additional packages:
+Now, you will make dedicated pages for the CRUD operations. Create a file structure that looks like this:
 
 ```
-pip install flask flask-login flask-sqlalchemy flask-bcrypt
+your_project/
+├── app.py
+└── templates/
+    ├── home.html
+    ├── add_user.html
+    ├── edit_user.html
+    └── view_user.html
 ```
 
-## User model with roles
+Install the required packages:
 
-The new user model looks as follows. We are inheriting from the UserMixin class of the Flask-Login package. We are storing the password instead of the email (more about security later), and a role (e.g., "user" or "admin").
+```bash
+pip install flask flask-sqlalchemy pymysql
+```
+
+
+## Form pages
+
+Copy the following code snippets into their respective HTML files. They only introduce HTML tables and forms as the input and output interfaces.
+
+
+```html title="templates/add_user.html" linenums="1"
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add User</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Add New User</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <form method="POST">
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add User</button>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
+```
+
+- `<form method="POST">` creates a native HTML form element that sends all fields within it to the same URL (in this case `/add`) with the method `POST` instead of the regular `GET`.
+- `<input>` elements contain the variables. The variable names are set by the `name` attribute.Add `type` and `required` attributes where necessary.
+- `<button type="submit">` then makes the POST API request, transmitting the filled out form fields. 
+
+
+<figure markdown="span">
+![](assets/images/ch3_add_page.png)
+</figure>
+
+
+```html title="templates/home.html" linenums="1"
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>User Management</h1>
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <a href="{{ url_for('add_user') }}" class="btn btn-primary mb-3">Add New User</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        <a href="{{ url_for('view_user', id=user.id) }}" class="btn btn-info btn-sm">View</a>
+                        <a href="{{ url_for('update_user', id=user.id) }}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{{ url_for('delete_user', id=user.id) }}" class="btn btn-danger btn-sm"
+                            onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
+```
+
+<figure markdown="span">
+![](assets/images/ch3_index_page.png)
+</figure>
+
+Test your understanding of how to create HTML forms by making the missing one to view an individual user and the one to edit an individual user! Make sure they work by adding, editing, and deleting a couple of users.
+
+
+## Updates to the server code
+
+You need to make changes to the server code of the previous chapter. Primarily, you will no longer pass information as URL parameters (e.g., `/add_user/<str:username>/`). Instead, you will use **POST requests** and transmit the new variables in the request body.
+
+Routes will now look like this:
 
 ```python
-class User(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(250), unique=True, nullable=False)
-    password = db.Column(db.String(250), nullable=False)
-    role = db.Column(db.String(50), default="user", nullable=False) # "user" or "admin"
+@app.route('/add', methods=['GET', 'POST']) # (1)!
+def add_user():
+    if request.method == 'POST': # (2)!
+        username = request.form['username'] # (3)!
+        email = request.form['email']
+        if not username or not email:  # (4)!
+            flash('Please fill in all fields', 'error')
+            return redirect(url_for('add_user'))
+        try:
+            new_user = User(username=username, email=email)
+            db.session.add(new_user)
+            db.session.commit()
+            flash('User added successfully!', 'success')
+            return redirect(url_for('index')) # (5)!
+        except Exception as e:
+            flash(f'Error adding user: {str(e)}', 'error')
+            return redirect(url_for('add_user')) # (6)!
+
+    return render_template('add_user.html') # (7)!
 ```
 
-!!! warning "If you are using the same MySQL database for this chapter as for the one before, you will need to delete the User table!"
-    - In MySQL Workbench run the script `DROP TABLE user;`.
-    - Confirm in the left panel that the table is gone.
-    - (Re-)start your Flask app to create the new user table.
+1. The route now accepts both "GET" and "POST" as a method.
+2. The database manipulation part of the function is only executed if the request method is "POST".
+3. This extracts what the user typed into the form field with the label "username". 
+4. If one of the fields is missing, the server shows an error message and reloads the page to show it.
+5. If the new user has been added successfully, the server redirects the browser to the landing page.
+6. If there was an exception when adding the user, the server shows a different error message and reloads the page to show it.
+7. If the method is "GET", this function simply renders the template.
 
 
-## Flask-Login
+!!! warning "The sever is still accepting GET requests"
+    - `GET` (e.g., just typing in the URL) will render and return the template.
+    - `POST` (i.e., form action) will make database changes.
+    - In real-world systems you would use more specific HTTP methods like `PATCH`, `PUT`, and `DELETE`. To keep it simple, stick to `POST` for this class.
 
-The following code is required for Flask-Login to work. The imported functions (e.g., `login_user`) are handling and hiding most of the compicated procedures so that you don't have to deal with them.
 
-```python
-from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
-
-@login_manager.user_loader # (1)!
-def load_user(user_id):
-    return User.query.get(int(user_id))
-
-@app.route('/login', methods=["GET", "POST"])
-def login():
-    if request.method == "POST":
-        user = User.query.filter_by(
-        username=request.form.get("username")
-        ).first()
-        if user and user.password == request.form.get("password"): # (2)!
-            login_user(user) # (3)!
-            return redirect(url_for("home"))
-    return render_template("login.html")
-
-@app.route('/logout')
-@login_required # (4)!
-def logout():
-    logout_user()
-    return redirect(url_for("login"))
-```
-
-1. This tells Flask-Login where to find a specific User object in our system.
-2. Here we are checking whether the password entered in the browser is the same as the one stored in the database.
-3. We call the `login_user` function imported from the `flask_login` package and pass the `UserMixin` object.
-4. `@login_required` is a decorator that sends an error page to the browser if the user is not logged in.
-
-With this code we only get to the homepage after successfully logging in. Note that this snippet alone won't work. We still need all the other server code:
-
+Make sure you understand every line of the `add_user()` function and then insert it into the template for the server code below. Then implement the remaining three of the four CRUD functions. Note that you have to import `request` from the Flask package for this.
 
 ```python title="app.py" linenums="1"
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
+
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:mysqlrootpassword@localhost:3306/flask_app'
@@ -85,206 +193,42 @@ app.config['SECRET_KEY'] = 'your-secret-key-here'
 
 db = SQLAlchemy(app)
 
-login_manager = LoginManager()
-login_manager.init_app(app)
-# User model with role-based access control
-class User(UserMixin, db.Model):
+class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(250), unique=True, nullable=False)
-    password = db.Column(db.String(250), nullable=False)
-    role = db.Column(db.String(50), default="user", nullable=False) # "user" or "admin"
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
 
 with app.app_context():
     db.create_all()
 
-# User loader - required by Flask-Login
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
-
-@app.route('/register', methods=["GET", "POST"])
-def register():
-    if request.method == "POST":
-        user = User(
-        username=request.form.get("username"),
-        password=request.form.get("password"),
-        role="user" # Default role
-        )
-        db.session.add(user)
-        db.session.commit()
-        return redirect(url_for("login"))
-    return render_template("sign_up.html")
-
-@app.route('/login', methods=["GET", "POST"])
-def login():
-    if request.method == "POST":
-        user = User.query.filter_by(
-        username=request.form.get("username")
-        ).first()
-        if user and user.password == request.form.get("password"):
-            login_user(user)
-        return redirect(url_for("home"))
-    return render_template("login.html")
-
-@app.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for("login"))
-
 @app.route('/')
-def home():
-    return render_template("home.html")
-```
+def index():
+    users = User.query.all() 
+    return render_template('home.html', users=users)
 
+# CREATE - Add new user
+@app.route('/add', methods=['GET', 'POST'])
+def add_user():
+    # TODO: Implement add user functionality
+    return render_template('add_user.html')
 
-## New HTML templates
+# READ - View an individual user
+@app.route('/view', methods=['GET', 'POST'])
+def view_user():
+    # TODO: Implement view user functionality
+    return render_template('view_user.html')
 
-You will need to create templates for `home`, `login`, and `sign_up`. The latter two are very similar to the `add_user` page that you already know, so you could use it as a starting point.
+# UPDATE - Edit an individual user
+@app.route('/update', methods=['GET', 'POST'])
+def update_user():
+    # TODO: Implement update user functionality
+    return render_template('edit_user.html')
 
-!!! info "For passwords use `<input type="password">`"
-
-On the homepage, we want to display different content depending on the user role and authentication:
-
-- If the user is logged in with role "user", show "This is visible only to regular users."
-- If the user is logged in with role "admin", show "This is visible only to admins."
-- If the user is not logged in at all, show "You are not logged in."
-
-
-```html title="templates/home.html" linenums="1"
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-</head>
-<body>
-    <nav>
-        <ul>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/register">Create account</a></li>
-            {% if current_user.is_authenticated %}
-            <li><a href="/logout">Logout</a></li>
-            {% endif %}
-        </ul>
-    </nav>
-    {% if current_user.is_authenticated %}
-        <h1>Welcome, {{ current_user.username }}!</h1>
-        {% if current_user.role == "admin" %}
-            <h2>Admin Dashboard</h2>
-            <p>This is visible only to admins: Manage users, settings, etc.</p>
-            {% elif current_user.role == "user" %}
-            <h2>User Dashboard</h2>
-            <p>This is visible only to regular users.</p>
-        {% endif %}
-    {% else %}
-    <h1>You are not logged in.</h1>
-    {% endif %}
-</body>
-</html>
-```
-
-- `{% if current_user.is_authenticated %}` only shows the following content if the user is logged in.
-- `{% if current_user.role == "admin" %}` only shows the following content if the user has the role "admin".
-
-
-
-## Password hashing
-
-!!! warning "Never store passwords as plain text in your database!"
-    You will hash them into a string that can still be compared to verify a password, but not be reversed to reveal the password. Look up "hashing algorithms" if you want to learn more.
-
-You will use Bcrypt from the Flask-Bcrypt package to hash passwords. You will need to do that everytime a password is entered (i.e., when signing up and signing in). 
-
-At the top of your `app.py` import and initialize Bcrypt:
-
-```python
-from flask_bcrypt import Bcrypt
-bcrypt = Bcrypt(app)
-```
-
-In the registration route, hash the new password and only store the hashed value:
-
-```python
-@app.route('/register', methods=["GET", "POST"])
-def register():
-    if request.method == "POST":
-        hashed_password = bcrypt.generate_password_hash( # (1)!
-            request.form.get("password")
-        ).decode('utf-8')
-        user = User(
-            username=request.form.get("username"),
-            password=hashed_password, # (2)!
-            role="user"
-        )
-        db.session.add(user)
-        db.session.commit()
-        return redirect(url_for("login"))
-    return render_template("sign_up.html")
-```
-
-1. Create the hash value for the password.
-2. Create the User object with the hash value as the password.
-
-In the login route, verify the password:
-
-```python
-@app.route('/login', methods=["GET", "POST"])
-def login():
-    if request.method == "POST":
-        user = User.query.filter_by(
-            username=request.form.get("username")
-        ).first()
-        if user and bcrypt.check_password_hash( # (1)!
-            user.password, request.form.get("password")
-        ):
-            login_user(user)
-            return redirect(url_for("home"))
-    return render_template("login.html")
-```
-
-1. Compare the hashed password from the User object using the `check_password_hash` function instead of simple string comparison.
-
-
-## Custom decorators
-
-Just like `@login_required` you can create your own `@`-decorator functions that limit access to a page depending on custom conditions. You will need to import the `wrap` decorator from the pre-installed `functools` package. Use this wrapper to crate a function within a function like this:
-
-```python
-from functools import wraps
-
-def decroator_function(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        # Your code here
-        return f(*args, **kwargs)
-    return decorated_function
-```
-
-The following example creates an `@admin_required` decorator that only allows logged-in users with the role "admin" to access the page:
-
-```python
-def admin_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if not current_user.is_authenticated or current_user.role != "admin":
-            return redirect(url_for("home"))
-        return f(*args, **kwargs)
-    return decorated_function
-```
-
-You can also add parameters to the decorator function. The following example creates a decorator that only allows users with one of a list of roles to access the page like `@role_required("admin", "manager")`
-
-```python
-def role_required(*roles):
-    def decorator(f):
-        @wraps(f)
-        def decorated_function(*args, **kwargs):
-            if not current_user.is_authenticated or current_user.role not in roles:
-                return redirect(url_for("home"))
-            return f(*args, **kwargs)
-        return decorated_function
-    return decorator
+# DELETE - Delete a user
+@app.route('/delete', methods=['POST'])
+def delete_user():
+    # TODO: Implement delete user functionality
+    return redirect(url_for('index'))
 ```
 
 <div class="chapter-nav" markdown="1">
