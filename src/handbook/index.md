@@ -18,7 +18,7 @@ This handbook walks you through the full project workflow, from preparing your e
 - [Chapter 2: MySQL Database Setup](chapter-2.md)  
   Install and set up MySQL locally.
 
-- [Chapter 3: Database Integration into the Flask App](chapter-3.md)  
+- [Chapter 3: Database Integration in Flask Apps](chapter-3.md)  
   Connect your Flask project to a database for storing application data.
 
 - [Chapter 4: CRUD Operations with Forms and Requests](chapter-4.md)  
