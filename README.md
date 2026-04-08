@@ -55,6 +55,7 @@ See more like tables, footnotes etc. here: [Markdown cheat sheet](https://www.ma
 
 
 ## Text Boxes
+
 Requires adding `pymdownx.admonitions` to the `mkdocs.yml`. [Documentation](https://squidfunk.github.io/mkdocs-material/reference/admonitions/)
 
 ```markdown
@@ -89,6 +90,12 @@ theme:
     features:
         - content.code.copy
         - content.code.select
+```
+
+Long code blocks (e.g., > 40 lines) look ugly when printed to PDF. The solution is to break them into smaller code blocks and then start every subsequent codeblock at the correct line number, for example: 
+
+```
+python title="app.py (continued)" linenums="19"
 ```
 
 

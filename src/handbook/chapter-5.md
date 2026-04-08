@@ -9,18 +9,23 @@
 
 # Chapter 5: Authentication and Access Control
 
-Flask-Login handles user session management, making it easy to implement login/logout functionality and restrict access to certain pages. 
+Flask-login handles user session management, making it easy to implement login/logout functionality and restrict access to certain pages. 
 Combined with role-based access control (RBAC), you can create applications where different users have different permissions.
 
-You need to install a couple of additional packages:
+Install the required packages:
 
+```bash
+pip install flask flask-login flask-sqlalchemy flask-bcrypt pymysql
 ```
-pip install flask flask-login flask-sqlalchemy flask-bcrypt
-```
+
+!!! warning "Create a new MySQL database for this chapter!"
+    You will change the user model and this would break your previous tables and entries. A clean setup prevents such issues.
+    Keep MySQL Workbench open while working on this chapter to inspect and manipulate the data.
+
 
 ## User model with roles
 
-The new user model looks as follows. We are inheriting from the UserMixin class of the Flask-Login package. We are storing the password instead of the email (more about security later), and a role (e.g., "user" or "admin").
+The new user model looks as follows. The class inherits from the UserMixin class of the flask-login package. This database model includes the password instead of the email (more about security later), and a role (e.g., "user" or "admin").
 
 ```python
 class User(UserMixin, db.Model):
@@ -30,15 +35,15 @@ class User(UserMixin, db.Model):
     role = db.Column(db.String(50), default="user", nullable=False) # "user" or "admin"
 ```
 
-!!! warning "If you are using the same MySQL database for this chapter as for the one before, you will need to delete the User table!"
-    - In MySQL Workbench run the script `DROP TABLE user;`.
-    - Confirm in the left panel that the table is gone.
-    - (Re-)start your Flask app to create the new user table.
+!!! warning "How to create an admin user"
+    Note that all users are assigned the "user" role by default. Do not let any user change themselves into an admin. 
+    Instead, go to the table in the MySQL Workbench and change that user's entry for "role" to "admin". 
+    Remember to save your changes by clicking "apply"!
 
 
-## Flask-Login
+## Flask-login
 
-The following code is required for Flask-Login to work. The imported functions (e.g., `login_user`) are handling and hiding most of the compicated procedures so that you don't have to deal with them.
+The following code is required for Flask-login to work. The imported functions (e.g., `login_user`) are handling and hiding most of the compicated procedures so that you do not have to deal with them.
 
 ```python
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
@@ -65,12 +70,13 @@ def logout():
     return redirect(url_for("login"))
 ```
 
-1. This tells Flask-Login where to find a specific User object in our system.
-2. Here we are checking whether the password entered in the browser is the same as the one stored in the database.
-3. We call the `login_user` function imported from the `flask_login` package and pass the `UserMixin` object.
-4. `@login_required` is a decorator that sends an error page to the browser if the user is not logged in.
+1. This tells Flask-login where to find a specific User object in the system.
+2. This checks whether the password entered in the browser is the same as the one stored in the database.
+3. Calling the `login_user` function imported from the `flask_login` package and passing the `UserMixin` object handles the login logic.
+4. `@login_required` is a decorator that sends an error page to the browser if the user is not logged in. Look up "Python decorators" if you want to learn more.
 
-With this code we only get to the homepage after successfully logging in. Note that this snippet alone won't work. We still need all the other server code:
+
+With this code, users only get to the homepage after successfully logging in. Note that this snippet alone will not work. You still need all the other server code:
 
 
 ```python title="app.py" linenums="1"
@@ -87,6 +93,9 @@ db = SQLAlchemy(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
+```
+
+```python title="app.py (continued)" linenums="15"
 # User model with role-based access control
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -137,14 +146,18 @@ def home():
     return render_template("home.html")
 ```
 
+!!! warning "This code stores and compares passwords in plain text!"
+    As the developer, you can see everyone's passwords in the MySQL Workbench, and so can hackers.
+    In one of the sections below you will learn a better, more secure approach called "hashing".
+
 
 ## New HTML templates
 
-You will need to create templates for `home`, `login`, and `sign_up`. The latter two are very similar to the `add_user` page that you already know, so you could use it as a starting point.
+You still need to create templates for `home`, `login`, and `sign_up`. The latter two are very similar to the `add_user` page that you already know, so you could use it as a starting point.
 
 !!! info "For passwords use `<input type="password">`"
 
-On the homepage, we want to display different content depending on the user role and authentication:
+On the homepage, display different content depending on the user role and authentication:
 
 - If the user is logged in with role "user", show "This is visible only to regular users."
 - If the user is logged in with role "admin", show "This is visible only to admins."
@@ -187,14 +200,17 @@ On the homepage, we want to display different content depending on the user role
 - `{% if current_user.is_authenticated %}` only shows the following content if the user is logged in.
 - `{% if current_user.role == "admin" %}` only shows the following content if the user has the role "admin".
 
+!!! info "This means, the same template produces different HTML code depending on the user type."
+    This is different from the `@login_required` Python decorator that was introduced above. The decorator in the server prevents unauthorized users from accessing the route completely while the `current_user.is_authenticated` check conditionally adds HTML elements to the route's response.
 
 
 ## Password hashing
 
-!!! warning "Never store passwords as plain text in your database!"
-    You will hash them into a string that can still be compared to verify a password, but not be reversed to reveal the password. Look up "hashing algorithms" if you want to learn more.
+Never store passwords as plain text in your database! Instead, use a one-way hash function to turn them them into a string that can still be compared to verify a password without revealing the password. Look up "hashing algorithms" if you want to learn more.
 
-You will use Bcrypt from the Flask-Bcrypt package to hash passwords. You will need to do that everytime a password is entered (i.e., when signing up and signing in). 
+!!! warning "Users that you have created in the previous step will no longer be able to log in and need to be deleted after this next step"
+
+Use Bcrypt from the Flask-Bcrypt package to hash passwords. Do this everytime a password is entered (i.e., when signing up and signing in). 
 
 At the top of your `app.py` import and initialize Bcrypt:
 
@@ -203,7 +219,7 @@ from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 ```
 
-In the registration route, hash the new password and only store the hashed value:
+In the registration route, hash the new password and **only store the hashed value**:
 
 ```python
 @app.route('/register', methods=["GET", "POST"])
@@ -228,7 +244,7 @@ def register():
 
 In the login route, verify the password:
 
-```python
+```python hl_lines="7-9"
 @app.route('/login', methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -245,47 +261,12 @@ def login():
 
 1. Compare the hashed password from the User object using the `check_password_hash` function instead of simple string comparison.
 
+!!! warning "Carefully note the parameters of the `bcrypt.check_password_hash` function."
+    - The first parameter is the the *hashed* password retrieved from the database.
+    - The second parameter is the *plain* password retrieved from the HTML input field. It will be hashed inside that function.
 
-## Custom decorators
+!!! info "Check inside MySQL Workbench to confirm that new passwords are no longer stored in plain text and to learn what a hashed password looks like."
 
-Just like `@login_required` you can create your own `@`-decorator functions that limit access to a page depending on custom conditions. You will need to import the `wrap` decorator from the pre-installed `functools` package. Use this wrapper to crate a function within a function like this:
-
-```python
-from functools import wraps
-
-def decroator_function(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        # Your code here
-        return f(*args, **kwargs)
-    return decorated_function
-```
-
-The following example creates an `@admin_required` decorator that only allows logged-in users with the role "admin" to access the page:
-
-```python
-def admin_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if not current_user.is_authenticated or current_user.role != "admin":
-            return redirect(url_for("home"))
-        return f(*args, **kwargs)
-    return decorated_function
-```
-
-You can also add parameters to the decorator function. The following example creates a decorator that only allows users with one of a list of roles to access the page like `@role_required("admin", "manager")`
-
-```python
-def role_required(*roles):
-    def decorator(f):
-        @wraps(f)
-        def decorated_function(*args, **kwargs):
-            if not current_user.is_authenticated or current_user.role not in roles:
-                return redirect(url_for("home"))
-            return f(*args, **kwargs)
-        return decorated_function
-    return decorator
-```
 
 <div class="chapter-nav" markdown="1">
 

@@ -70,7 +70,7 @@ MySQL Workbench will create the simple SQL script that creates the new database 
 ![](assets/images/ch2_workbench_create_schema_4.png)
 </figure>
 
-You will not add or manipulate tables or entries through Workbench. The next sections will show you how to do that in Flask.
+You will not add or manipulate tables through Workbench. The next sections will show you how to do that in Flask.
 
 
 ## Configuring Flask-SQLAlchemy
