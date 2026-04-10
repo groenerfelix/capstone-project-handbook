@@ -15,7 +15,7 @@ In this chapter you will put together what you learned in the previous chapter t
 
 To create a quick visualization, put together all the snippets from the previous chapter in the following `app.py`. Only the highlighted lines are new.
 
-```python title="app.py" linenums="1" hl_lines="20-23"
+```python title="app.py" hl_lines="20-23"
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 
@@ -46,7 +46,7 @@ def index():
 
 This server only has one route (`/`) and needs a new template. The function is already passing the `users` variable to the template. Create the `home.html` template as follows and see how it uses the passed variable.
 
-```html title="templates/home.html" linenums="1"
+```html title="templates/home.html"
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -183,7 +183,7 @@ With the code snippets above you can now create a server that lets clients manip
     - `url_for` gives you the url for a route (e.g., index); you have used these in the previous section already in the HTML templates.
     - `flash` is used to send pop-up notifications from the server to the client.
 
-```python title="app.py" linenums="1" hl_lines="1"
+```python title="app.py" hl_lines="1"
 from flask import Flask, render_template, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 
@@ -204,7 +204,7 @@ with app.app_context():
     db.create_all()
 ```
 
-```python title="app.py (continued)" linenums="19"
+```python title="app.py (continued)"
 @app.route('/')
 def index():
     users = User.query.all() 

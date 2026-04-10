@@ -30,7 +30,7 @@ You can check whether Flask is installed with `pip list`.
 
 In your project folder, create a new file called `app.py`.
 
-```python title="app.py" linenums="1"
+```python title="app.py"
 from flask import Flask # (1)!
 
 app = Flask(__name__) # (2)!
@@ -50,7 +50,9 @@ Start your app with `flask run`. It should show you in the console what URL you 
 
 You can stop your app with `CTRL + C` or by closing the terminal.
 
-!!! warning "Troubleshooting common issues"
+??? warning "Troubleshooting common issues"
+    Carefully read each error message! They often tell you what the problem is, where is occurred, and how to fix it.
+    
     - "Flask not found" means that either the virtual environment is not activated or Flask is not installed.
     - "Port 5000 already in use" means that another app is using the port (maybe your own flask app in another terminal!). Close whatever other app is using the port or change the port of your new app with `flask run --port=5001`.
 
@@ -98,7 +100,7 @@ A base template contains the common HTML structure that several (or all) pages s
 
 Copy this code into `templates/base.html` and make sure you understand every single line of it:
 
-```html title="templates/base.html" linenums="1"
+```html title="templates/base.html"
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -139,7 +141,7 @@ Child templates extend the base template and fill in the content block placehold
 
 Copy this code into `templates/home.html` and `templates/about.html` respectively and make sure you understand every single line: 
 
-```html title="templates/home.html" linenums="1"
+```html title="templates/home.html"
 {% extends "base.html" %}
 
 {% block title %}Home{% endblock %}
@@ -151,7 +153,7 @@ Copy this code into `templates/home.html` and `templates/about.html` respectivel
 ```
 
 
-```html title="templates/about.html" linenums="1"
+```html title="templates/about.html"
 {% extends "base.html" %}
 
 {% block title %}About{% endblock %}
@@ -212,7 +214,7 @@ As you can see, you include these external files by linking them just like you w
 
 Replace the code in `/templates/base.html` and `/templates/home.html` with the following, respectively. It includes the two links you have retrieved from the website and already applies many utility classes to the elements.
 
-```html title="/templates/base.html" linenums="1" hl_lines="6 37"
+```html title="/templates/base.html" hl_lines="6 37"
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -254,7 +256,7 @@ Replace the code in `/templates/base.html` and `/templates/home.html` with the f
 </html>
 ```
 
-```html title="/templates/home.html" linenums="1"
+```html title="/templates/home.html"
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
@@ -323,7 +325,7 @@ my_flask_project/
             └── script.js
 ```
 
-```css title="static/css/style.css" linenums="1"
+```css title="static/css/style.css"
 /* Custom styles */
 body {
     min-height: 100vh;
@@ -347,7 +349,7 @@ footer {
 }
 ```
 
-```javascript title="static/js/script.js" linenums="1"
+```javascript title="static/js/script.js"
 // Highlight active navigation link
 document.addEventListener('DOMContentLoaded', function() {
     const currentLocation = window.location.pathname;

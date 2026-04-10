@@ -93,6 +93,8 @@ theme:
         - content.code.select
 ```
 
+Code block formatting (especially line numbers) will break if lines are too long. The solution is to change the indentation from tabs to double-spaces, or to manually write lines in a wrapped style. If that is not enough, I have turned off line numbers for that code block
+
 Long code blocks (e.g., > 40 lines) look ugly when printed to PDF. The solution is to break them into smaller code blocks and then start every subsequent codeblock at the correct line number, for example: 
 
 ```

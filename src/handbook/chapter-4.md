@@ -34,7 +34,7 @@ pip install flask flask-sqlalchemy pymysql
 Copy the following code snippets into their respective HTML files. They only introduce HTML tables and forms as the input and output interfaces.
 
 
-```html title="templates/add_user.html" linenums="1"
+```html title="templates/add_user.html"
 <!DOCTYPE html>
 <html>
 <head>
@@ -79,13 +79,16 @@ Copy the following code snippets into their respective HTML files. They only int
 </figure>
 
 
-```html title="templates/home.html" linenums="1"
+```html title="templates/home.html"
 <!DOCTYPE html>
 <html>
 <head>
     <title>User Management</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
+```
+
+```html title="templates/home.html (continued)"
 <body>
     <div class="container mt-5">
         <h1>User Management</h1>
@@ -181,7 +184,7 @@ def add_user():
 
 Make sure you understand every line of the `add_user()` function and then insert it into the template for the server code below. Then implement the remaining three of the four CRUD functions. Note that you have to import `request` from the Flask package for this.
 
-```python title="app.py" linenums="1"
+```python title="app.py"
 from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_sqlalchemy import SQLAlchemy
 

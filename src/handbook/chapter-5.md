@@ -79,7 +79,7 @@ def logout():
 With this code, users only get to the homepage after successfully logging in. Note that this snippet alone will not work. You still need all the other server code:
 
 
-```python title="app.py" linenums="1"
+```python title="app.py"
 from flask import Flask, render_template, request, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
@@ -95,7 +95,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 ```
 
-```python title="app.py (continued)" linenums="15"
+```python title="app.py (continued)"
 # User model with role-based access control
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -164,7 +164,7 @@ On the homepage, display different content depending on the user role and authen
 - If the user is not logged in at all, show "You are not logged in."
 
 
-```html title="templates/home.html" linenums="1"
+```html title="templates/home.html"
 <!DOCTYPE html>
 <html lang="en">
 <head>

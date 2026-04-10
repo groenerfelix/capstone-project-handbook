@@ -44,7 +44,7 @@ Python is the programming language that you will primarily use in this class.
     3. **IMPORTANT:** During installation, check the box that says 'Add Python to PATH'.
     4. Click 'Install Now' and wait for installation to complete.
 
-!!! warning "'Python is not recognized' on Windows means that Python not added to PATH."
+!!! warning "'Python is not recognized' on Windows means that Python was not added to PATH."
     Reinstall Python following the alternative steps in the box above and make sure to click 'Add Python to PATH'.
 
 #### On Mac

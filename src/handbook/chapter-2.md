@@ -70,7 +70,8 @@ MySQL Workbench will create the simple SQL script that creates the new database 
 ![](assets/images/ch2_workbench_create_schema_4.png)
 </figure>
 
-You will not add or manipulate tables through Workbench. The next sections will show you how to do that in Flask.
+!!! warning "You will not add or manipulate tables through Workbench."
+    The next sections will show you how to do that in Flask.
 
 
 ## Configuring Flask-SQLAlchemy
@@ -115,7 +116,7 @@ You do not create tables in the MySQL Workbench. Instead, you will create tables
     - Each Python class inheriting from `db.Model` creates a table in your database.
     - Each instance of that class creates a row.
 
-```python title="app.py" linenums="1"
+```python title="app.py"
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 
@@ -165,7 +166,7 @@ You might need these common parameters for your project:
 - `default=value`: Sets a default value if none provided
 
 
-### Flask Shell Operations
+### Flask shell operations
 
 You can interact with your database directly from the Flask shell. This is useful for testing and debugging. In this command-line interface you write python code line by line into your terminal.
 
@@ -207,7 +208,7 @@ You can inspect the database in MySQL Workbench. To create queries, click on "Ne
 - To see all entries in a table called `user` write `SELECT * FROM user;`
 - To count how many entries are in the table `user` write `SELECT COUNT(*) FROM user;`
 
-You can always come back to this program whenever you are unsure about the state of a specific table or the success of an operation.
+!!! info "You can always come back to this program whenever you are unsure about the state of a specific table or the success of an operation."
 
 
 <div class="chapter-nav" markdown="1">
