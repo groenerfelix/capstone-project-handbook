@@ -167,6 +167,18 @@ To create a new repository in GitHub Desktop:
 
 1. Click “File”, then "New repository".
 2. Select your project folder.
+3. Publish your repository (see screenshot below) and make sure you **remove** the ckeckmark for "make this code private".
+
+??? warning "Why and how to make the repository public"
+    The graders will need access to your code, and this will simplify the deployment to AWS at the end of the project.
+
+    If you have accidentally created a private repository, you can still change its visibility later. Do not delete the repository because this might delete your commit history as well. Instead, go to your repository on GitHub by clicking "Repository" -> "View on GitHub" at the top of GitHub Desktop. Then go to "Settings" and scroll to the bottom. There you can change the visibility to "public":
+
+    ![GitHub visibility setting](assets/images/ch0_github_visibility.jpg)
+
+<figure markdown="span">
+![GitHub Desktop publish](assets/images/ch0_publish_repo.png)
+</figure>
 
 !!! warning "If someone on your team has already created and uploaded the shared repository (see below), click 'Clone repository' instead of 'New repository'."
 

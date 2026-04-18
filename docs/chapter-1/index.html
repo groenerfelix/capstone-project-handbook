@@ -880,7 +880,13 @@
 <li><strong>Detailed errors:</strong> It shows helpful details in the browser when something goes wrong.</li>
 </ul>
 <h2 id="working-with-templates">Working with templates<a class="headerlink" href="#working-with-templates" title="Permanent link">&para;</a></h2>
-<p>Templates allow you to separate your Python code from your HTML. Instead of embedding HTML directly in your Python code, you create separate HTML files that Flask renders dynamically. Flask uses <strong>Jinja2</strong>, a powerful templating engine that allows you to include Python-like expressions in your HTML. The Jinja-specific code blocks that differ from standard HTML are indicated by <code>{% ... %}</code>.</p>
+<p>Templates allow you to separate your Python code from your HTML. Instead of embedding HTML directly in your Python code, you create separate HTML files that Flask renders dynamically. Flask uses <strong>Jinja2</strong>, a powerful templating engine that allows you to include Python-like expressions in your HTML. The Jinja-specific code blocks that differ from standard HTML are indicated by curly braces <code>{ ... }</code>. Use:</p>
+<ul>
+<li><code>{{ variable_name }}</code> to print a variable</li>
+<li><code>{% function_call() %}</code> to execute a code block and print the return value</li>
+<li><code>{# comment #}</code> to add a comment</li>
+<li><code>{% for item in list %} ... {% endfor %}</code> to iterate through a list </li>
+</ul>
 <details class="info">
 <summary>Why use templates?</summary>
 <ul>
@@ -932,7 +938,7 @@
 </span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </span></code></pre></div>
 <ul>
-<li><code>{% block parameter_name %}{% endblock %}</code> is a placeholder that will be filled by the child template.</li>
+<li><code>{% block parameter_name %}...{% endblock %}</code> is a placeholder that will be filled by the child template.</li>
 <li><code>{{ url_for('resource_name') }}</code> is a function that the server will replace with the url like <code>/about</code>.</li>
 </ul>
 <h3 id="template-inheritance">Template inheritance<a class="headerlink" href="#template-inheritance" title="Permanent link">&para;</a></h3>
