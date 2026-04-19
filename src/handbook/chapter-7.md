@@ -1,170 +1,213 @@
 <div class="chapter-nav" markdown="1">
 
-[Previous](chapter-5.md) |
+[Previous](chapter-6.md) |
 [Home](index.md)
 
 </div>
 
 # Chapter 7: Deploying to AWS EC2
 
-!!! danger "TODO: work in progress"
+In this final chapter, you will move your Flask application to the cloud, set up firewalls, and connect it to the database. 
 
-## 8.1 Launching an EC2 Instance
+!!! warning "Go through the steps of the previous chapter again to set up a fresh database."
 
-Amazon EC2 (Elastic Compute Cloud) provides virtual servers to host your Flask application. This chapter walks you through deploying your application to the cloud.
+## Launching an EC2 instance
+
+Amazon EC2 (Elastic Compute Cloud) provides virtual servers to host your Flask application. 
 
 1. Log in to the AWS Management Console  
-2. Navigate to EC2 Dashboard  
-3. Click Launch Instance  
-4. Select Ubuntu Server 20.04 LTS (or newer)  
-5. Choose t2.micro instance type (Free Tier eligible)  
-6. Configure security group with the following rules:
+2. Search for "EC2" or navigate to "Compute" -> "EC2".
+3. Click "Launch instance" at the top
 
-Type | Port | Source | Purpose  
---- | --- | --- | ---  
-SSH | 22 | Your IP | Terminal access  
-HTTP | 80 | Anywhere | Web traffic  
-Custom TCP | 5000 | Anywhere | Flask development server  
+<figure markdown="span">
+![Creating an EC2 instance](assets/images/ch7_aws_launch_ec2.jpg)
+</figure>
 
----
+Go through the configuration setup and make selections exactly as follows. If something is not mentioned here you should leave the default value.
 
-## 8.2 Connecting via SSH
+- Name: `Flask App` or any name that you will recognize in your AWS dashboards
+- Amazon Machine Image: Click "Ubuntu" and then select the latest "Ubuntu Server" version that is "Free tier eligible"
+- Instance type: t3.micro (Free Tier eligible)
+- Key pair: For this class, select "Proceed without a key pair". 
+- Firewall: Select "Create a security group" because this instance will require different firewall rules than the database instance.
+- Leave the checkmark ticked for allowing SSH access from anywhere (0.0.0.0/0). You will update the rules in the next step.
+- "Summary" on the side:
+    - Number of instances: 1
+    - Review your settings
+    - Click "Launch instance"
 
-### Option 1: AWS Console (Easiest)
+!!! warning "Some settings for this class project unsafe for simplicity. In real-world projects you should handle these differently!"
+    - Set a key pair
+    - Restrict SSH access to only your IP address(es)
 
-1. In EC2 Dashboard, select your instance  
-2. Click Connect  
-3. Choose EC2 Instance Connect tab  
-4. Click Connect to open a browser-based terminal  
+It might take a while for your instance to launch. Wait in the EC2 dashboard under the "Instances" tab until your instance has the "Running" state.
 
-### Option 2: Terminal/Command Prompt
+<figure markdown="span">
+![Creating an EC2 instance](assets/images/ch7_aws_ec2_instance.jpg)
+</figure>
 
-```
-# Make your key file readable only by you (Mac/Linux)
-chmod 400 your-key.pem
-```
+Once the instance is ready, select it and take note of its "Public DNS". This is the browser URL to access the server as a visitor.
 
-```
-# Connect to your instance
-ssh -i "your-key.pem" ubuntu@your-ec2-public-dns
-```
 
----
+## Configuring the firewall
 
-## 8.3 Server Setup and Dependencies
+You will need to change the firewall settings of your EC2 instance. In AWS, go to "EC2" and then "Security Groups". Change the inbound rules for the group that was created when you created your EC2 instance:
 
-Once connected, run these commands:
+- Keep SSH (port 22) from anywhere (0.0.0.0/0). You need this to log into the server.
+- Allow Custom TCP (port 5000) from anywhere (0.0.0.0/0). This is the port through which browsers send requests to your flask application. You will set it later when running `flask run --port 5000`.
 
-```
-# Update system packages
+!!! info "Limiting the number of ports and the number of accepted sources to a minimum increases security."
+    For example, it would be best to set the SSH to only accept requests from your personal IP and the database to only accept requests from the EC2 instance. For simplicity, leave both as "from anywhere (0.0.0.0/0)" for this class so that you can still connect from multiple devices, WiFi spots, and with MySQL Workbench.
+
+!!! info "Real production servers use **reverse proxies** like Nginx or Caddy to route ports 80 (HTTP) and 443 (HTTPS) internally to the right services."
+
+
+## Connecting via SSH
+
+You can log into the server through your terminal. AWS offers a convenient browser feature for this.
+
+1. In the list of EC2 instances, select your instance.
+2. At the top, click "Connect"
+3. Select the "EC2 Instance Connect" tab.
+4. Choose "Connect using a Public IP"
+5. Click "Connect" at the bottom
+
+<figure markdown="span">
+![Connecting to an EC2 instance](assets/images/ch7_aws_connect_ec2.jpg)
+</figure>
+
+
+## Setting up your server and production environment
+
+Once you are connected to the instance, run the following commands.
+
+Update system packages:
+
+```bash
 sudo apt update
 sudo apt upgrade -y
 ```
 
-```
-# Install Python, pip, and Git
-sudo apt install python3 python3-pip git -y
+Install Python, pip, and Git:
+
+```bash
+sudo apt install python3 python3-pip python3-venv git -y
 ```
 
+Verify installation:
+
 ```
-# Verify installation
 python3 --version
 pip3 --version
 git --version
 ```
 
----
+!!! warning "Note that if you use Windows, you will have to type `python3` instead of `python` because you are now working on a Linux machine."
 
-## 8.4 Deploying Your Application
 
-```
-# Navigate to home directory
-cd /home/ubuntu
+## Preparing your application
+
+Choose any application that you have built in one of the previous chapters that 
+
+- makes any changes to the database and
+- renders a template.
+
+Open that folder and activate the virtual environment.
+
+Change the database connection string to the one you build with the details of the new database you set up for this chapter.
+
+!!! warning "You will likely run into errors if you try to re-use the database from the previous chapter because the User model might be different!"
+    Delete the old database and create a new one following the same steps.
+
+Write all required packages into a file called `requirements.txt` with the following command:
+
+```bash
+pip freeze > requirements.txt
 ```
 
-```
-# Clone your repository
+The new `requirements.txt` file now includes all the packages you have installed in this environment, and their specific versions (for example, `bcrypt==5.0.0`). This will make it easier to recreate the same environment on the server.
+
+Commit this new file to the repository and push it to GitHub. Make sure the GitHub repository is public. Copy the URL of that repository (something like `https://github.com/your-username/your-flask-repo.git`) because you will need it for the next step.
+
+
+## Setting up your application
+
+On the Linux server, clone your directory by pasting the repository URL into the `git clone` command:
+
+```bash
 git clone https://github.com/your-username/your-flask-repo.git
+```
+
+Navigate into the directory with `cd` followed by the name of your repository:
+
+```bash
 cd your-flask-repo
 ```
 
+Set up a virtual environment:
+
+```bash
+python3 -m venv venv
 ```
-# Install dependencies
+
+Activate your virtual environment:
+
+```bash
+source venv/bin/activate
+```
+
+!!! warning "Note that if you use Windows, you will have to use the `source` variant of this command because you are now working on a Linux machine."
+
+Install all necessary packages. The command below reads them from the `requirements.txt` file.
+
+```bash
 pip3 install -r requirements.txt
 ```
 
-Sample requirements.txt:
+
+## Starting and accessing your application
+
+Start your Flask server on the Linux machine:
 
 ```
-flask
-flask-sqlalchemy
-pymysql
-flask-login
-flask-bcrypt
+flask run --host 0.0.0.0 --port 5000
 ```
 
----
+Your Flask application is now running and accessible from anywhere! Find its public DNS in the EC2 instances list, open a new browser tab and navigate to `http://your-ec2-public-dns:5000`. You should now see your website. Add a user, check the terminal for error messages, and verify that it worked by finding the new entry in MySQL Workbench.
 
-## 8.5 Running in Production
+!!! info "`https://` will not work because it requires additional setup"
 
-Running the Flask Development Server:
+Just like on your local machine, the server stops and your website becomes unavailable once you close your terminal / the EC Instance Connect page. Avoid this issue by following these steps:
 
-```
-# Run Flask accessible from any IP
-flask run --host=0.0.0.0 --port=5000
-```
+1. Install and use 'screen': `sudo apt install screen`
+2. Type `screen` to start a new screen session. 
+3. Press space or return to skip the info popup.
+4. Run your Flask app
+5. "Detach" the session by pressing `CTRL+A` and then pressing `D`.
 
-```
-# Or using Python directly
-python3 app.py
-```
+Your app will now continue to run even when you close the EC Instance connect tab.
 
-Access your application:
+To actually stop the Flask application:
+- "Re-attach" the session by typing `screen -r`
+- Stop the server with `CTRL+C`
 
-Open your browser and navigate to: http://your-ec2-public-dns:5000
 
-Running in Background with Screen:
+## Stopping, restarting, and deleting your instances
 
-By default, the Flask server stops when you close your terminal. Use 'screen' to keep it running:
+Just like databases, running instances will create costs when your free plan expires. At the top of the EC2 instances list, select one and click "Instance state" to see your options.
 
-```
-# Install screen
-sudo apt install screen
-```
+<figure markdown="span">
+![Deleting an EC2 instance](assets/images/ch7_aws_stop_ec2.jpg)
+</figure>
 
-```
-# Start a new screen session
-screen
-```
+You can stop an instance temporarily when it is not in use and restart it when you need it. This drastically reduces the running costs.
 
-```
-# Run your Flask app
-flask run --host=0.0.0.0 --port=5000
-```
+If you are absolutely sure that you no longer need an instance you can "terminate" the instance permanently. This removes all the data you had saved on it and cuts all costs. 
 
-Detach from screen: Press Ctrl+A, then D  
-
-Later, reattach to see output:
-
-```
-screen -r
-```
-
-Useful Commands:
-
-Command | Description  
---- | ---  
-screen | Start a new screen session  
-Ctrl+A, then D | Detach from current screen  
-screen -r | Reattach to a screen session  
-screen -ls | List all screen sessions  
-exit | Close current screen session  
-
-✓ Congratulations! Your Flask application is now running in the cloud. For production use, consider using a WSGI server like Gunicorn and a reverse proxy like Nginx.
 
 <div class="chapter-nav" markdown="1">
 
-[Previous](chapter-5.md) |
+[Previous](chapter-6.md) |
 [Home](index.md)
 
 </div>

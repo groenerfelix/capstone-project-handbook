@@ -543,6 +543,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#deleting-an-rds-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deleting an RDS instance
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -687,6 +698,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#deleting-an-rds-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deleting an RDS instance
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -705,9 +727,9 @@
 
 
 <div class="chapter-nav">
-<p><a href="../chapter-4/">Previous</a> |
+<p><a href="../chapter-5/">Previous</a> |
 <a href="../">Home</a> |
-<a href="./">Next</a></p>
+<a href="../chapter-7/">Next</a></p>
 </div>
 <h1 id="chapter-6-aws-rds-database-setup">Chapter 6: AWS RDS Database Setup<a class="headerlink" href="#chapter-6-aws-rds-database-setup" title="Permanent link">&para;</a></h1>
 <p>In these last two chapters, you will move the database and Flask app from your local computer to the cloud. On those remote servers, anyone can access your website at any time. </p>
@@ -748,7 +770,7 @@
 <p>Go to <a href="https://aws.amazon.com/">aws.amazon.com</a> and create an account. You will need to put in your credit card details. As long as your select the free tier, your card will not be charged.</p>
 <h2 id="creating-an-rds-instance">Creating an RDS instance<a class="headerlink" href="#creating-an-rds-instance" title="Permanent link">&para;</a></h2>
 <p>Amazon RDS (Relational Database Service) provides a managed MySQL database in the cloud. </p>
-<p>Log in to the AWS Management Console and find the RSD service either by searching or by navigating to "Database" and then  </p>
+<p>Log in to the AWS Management Console and find the RDS service either by searching or by navigating to "Database" and then "Aurora and RDS". </p>
 <figure>
 <img alt="Searching for RDS" src="../assets/images/ch6_aws_search_database.jpg" width="600" />
 </figure>
@@ -762,44 +784,48 @@
 <li>Choose a database creation method: Full configuration</li>
 <li>Templates: Free tier</li>
 <li>Deployment options: 1 instance</li>
-<li>Settings</li>
+<li>Settings<ul>
 <li>Engine version: select the latest</li>
 <li>DB instance identifier: this is not the database name; It only shows up in AWS. Set it to <code>my-rds-instance</code>.</li>
 <li>Master username: Leave the database manager username as <code>admin</code> (instead of root)</li>
 <li>Credentials management: self-managed</li>
 <li>Master password: This should usually be a strong password for your database; for this class choose one that you will definitely not forget (like <code>password</code>)</li>
+</ul>
+</li>
 <li>Instance configuration: Set instance type to <code>db.t4g.micro</code></li>
-<li>Storage</li>
+<li>Storage<ul>
 <li>Storage type: General Purpose SSD (gp2)</li>
 <li>Allocated storage: 20 GiB</li>
-<li>Connectivity</li>
+</ul>
+</li>
+<li>Connectivity<ul>
 <li>Compute resource: Do <strong>not</strong> connect to an EC2 compute instance. You will do that manually in the next chapter.</li>
 <li>Public access: <strong>Change to Yes</strong>. This is required to connect your local Flask application to the deployed database.</li>
-<li>VPC security group: Create new</li>
+<li>VPC security group: Create a new one. You will adjust its settings in the next step.</li>
 <li>New VPC security group name: <code>database-security-group</code></li>
 <li>Open "Additional configuration" and set "Database port" to <code>3306</code></li>
+</ul>
+</li>
 <li>Open "Additional configuration" at the very bottom of the page and set "Initial database name" to your database name (like <code>flask_app</code>)</li>
 </ul>
-<p>It will take a couple minutes for AWS to creat the database. You should see the status change from "Creating" to "Available".</p>
+<p>It might take a couple minutes for AWS to creat the database. You should see the status change from "Creating" to "Available".</p>
 <figure>
 <img alt="Creating a database" src="../assets/images/ch6_aws_database_creating2.jpg" />
 </figure>
 <h2 id="configuring-security-groups">Configuring security groups<a class="headerlink" href="#configuring-security-groups" title="Permanent link">&para;</a></h2>
-<p>Security groups act as a firewall, controlling which IP addresses can access your database through which ports. AWS already sets smart defaults and will likely have set it up correctly already. Still follow the steps below to verify the setup and to learn how to make changes for the final deployment. </p>
+<p>Security groups act as a firewall, controlling which IP addresses can access your database through which ports. Follow the steps below to set up the correct settings for your project.</p>
 <p>Search "Security Groups" or navigate to "Networking", then click "VPC", and then find "Security groups" on the left side of the new page.</p>
-<p>To edit the firewall rules
-1. Select the security group you created for your database
-2. Click "Inbound rules" at the bottom
-3. Click "Edit inbound rules"</p>
+<p>To edit the firewall rules</p>
+<ol>
+<li>Select the security group you created for your database</li>
+<li>Click "Inbound rules" at the bottom</li>
+<li>Click "Edit inbound rules"</li>
+</ol>
 <figure>
 <img alt="Creating a database" src="../assets/images/ch6_aws_search_vpc2.jpg" />
 </figure>
-<p>The database does not need HTTP, HTTPS, or SSH access. The rules should only allow <code>MYSQL/Aurora</code> traffic. Selecting this will automatically set the protocol to TCP and the port to 3306.</p>
-<p>The sources are the IP addresses that are allowed to access the database.</p>
-<ul>
-<li>For class projects in development, open the database to any IP address. Change "Source" to "Anywhere-IPv4" which will set the allowed IP address to <code>0.0.0.0/0</code>. This is unsafe and only acceptable during development because it simplifies the setup.</li>
-<li>When you deploy your Flask app to AWS in the next chapter, that virtual machine will have its own IP address. At that point, only your app should have access to the database and no other source. For this case, set "Source" to "Custom" and add the IP address of your EC instance.</li>
-</ul>
+<p>The database does not need HTTP, HTTPS, or SSH access. The rules should only allow MYSQL/Aurora traffic. Selecting this will automatically set the protocol to TCP and the port to 3306.</p>
+<p>The sources are the IP addresses that are allowed to access the database. For class projects in development, open the database to any IP address. Change "Source" to "Anywhere-IPv4" which will set the allowed IP address to <code>0.0.0.0/0</code>. This is unsafe and only acceptable during development because it simplifies the setup.</p>
 <p>Click "Save rules" at the bottom to apply the changes.</p>
 <figure>
 <img alt="Firewall rules for development" src="../assets/images/ch6_aws_firewall_rules.jpg" />
@@ -824,14 +850,15 @@
 <li>Open MySQL Workbench</li>
 <li>Click "Database", then "Manage Connections..."</li>
 <li>At the bottom, click "New"</li>
-<li>Enter the connection details:</li>
+<li>Enter the connection details:<ul>
 <li>Connection Name: Something like "AWS RDS"</li>
 <li>Hostname: Your RDS endpoint</li>
 <li>Port: 3306</li>
 <li>Username: admin (not "root"!)</li>
 <li>Password: Click "Store in Vault..." and enter your RDS password (not AWS)</li>
-<li>Click "Test Connection" to verify. <strong>You will see a warning that this MySQL version is not supported.</strong> Connect anyway.</li>
-<li>If successful, close the window and restart Workbench.</li>
+</ul>
+</li>
+<li>Click "Test Connection" to verify. <strong>You might see a warning that this MySQL version is not supported.</strong> Connect anyway.</li>
 </ol>
 <figure>
 <img alt="MySQL Workbench add connection" src="../assets/images/ch6_workbench_manage_connection.jpg" />
@@ -839,12 +866,12 @@
 <div class="admonition warning">
 <p class="admonition-title">Ignore the warning about unsupported MySQL versions. If you get any other error messages, the most likely source is misconfiguration in the RDS setup. Click 'Modify' in your RDS instance and go through all the steps above to verify you set them up correctly.</p>
 </div>
-<p>After restarting Workbench, you should find the new connection at the bottom, next to your local connections.</p>
+<p>After adding that connection, you should find a new tile at the bottom, next to your local connections. You might have to restart Workbench for it to appear.</p>
 <figure>
 <img alt="MySQL Workbench connect" src="../assets/images/ch6_workbench_connect.jpg" />
 </figure>
 <h2 id="integrating-with-flask">Integrating with Flask<a class="headerlink" href="#integrating-with-flask" title="Permanent link">&para;</a></h2>
-<p>Build this little Flask application to test the connection. It works exactly like the connection to the local database. You just need to update the database connection string.</p>
+<p>Build this minimal Flask application to test the database connection. It works exactly like the connection to the local database. You just need to update the database connection string.</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>mysql+pymysql://username:password@hostname:port/database_name
 </span></code></pre></div>
 <ul>
@@ -858,7 +885,7 @@
 <p>Your database connection string should now look something like this:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>mysql+pymysql://admin:password@my-rds-instance.xyz.us-east-2.rds.amazonaws.com:3306/flask_app
 </span></code></pre></div>
-<p>Set up a Flask project with a virtual environment, copy the following code in to <code>app.py</code>, install the necessary packages (<code>flask flask_sqlalchemy pymysql</code>), and start the app (<code>flask run</code>).</p>
+<p>Set up a Flask project with a virtual environment, copy the following code in to <code>app.py</code>, install the necessary packages (<code>flask flask_sqlalchemy pymysql</code>), and start the app.</p>
 <div class="language-python highlight"><span class="filename">app.py</span><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">flask</span><span class="w"> </span><span class="kn">import</span> <span class="n">Flask</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">flask_sqlalchemy</span><span class="w"> </span><span class="kn">import</span> <span class="n">SQLAlchemy</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
@@ -881,10 +908,18 @@
 <img alt="MySQL Workbench refresh tables" src="../assets/images/ch6_workbench_refresh_tables.jpg" />
 </figure>
 <p>If you get any error messages, read them carefully. They often tell you exactly what went wrong and how to fix it!</p>
+<h2 id="deleting-an-rds-instance">Deleting an RDS instance<a class="headerlink" href="#deleting-an-rds-instance" title="Permanent link">&para;</a></h2>
+<p>Running RDS instances will create costs when your free plan expires. 
+At the top of the databases list, select your database and click "Actions" to see your options.</p>
+<figure>
+<img alt="Deleting a database" src="../assets/images/ch6_aws_delete_database.jpg" />
+</figure>
+<p>You can stop an instance temporarily when it is not in use and restart it when you need it. This drastically reduces the running costs.</p>
+<p>If you are absolutely sure that you no longer need a database you can delete the instance permanently. This removes all the data you had saved in it and cuts all costs. </p>
 <div class="chapter-nav">
-<p><a href="../chapter-4/">Previous</a> |
+<p><a href="../chapter-5/">Previous</a> |
 <a href="../">Home</a> |
-<a href="./">Next</a></p>
+<a href="../chapter-7/">Next</a></p>
 </div>
 
 
