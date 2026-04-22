@@ -210,12 +210,13 @@ Never store passwords as plain text in your database! Instead, use a one-way has
 
 !!! warning "Users that you have created in the previous step will no longer be able to log in and need to be deleted after this next step"
 
-Use Bcrypt from the Flask-Bcrypt package to hash passwords. Do this everytime a password is entered (i.e., when signing up and signing in). 
+Use Bcrypt from the Flask-Bcrypt package to hash passwords. Do this everytime a password is entered (i.e., when signing up and signing in).
 
-At the top of your `app.py` import and initialize Bcrypt:
+At the top of your `app.py` import Bcrypt. Then after you create your Flask app object, initialize bcrypt like this:
 
 ```python
 from flask_bcrypt import Bcrypt
+app = Flask(__name__)
 bcrypt = Bcrypt(app)
 ```
 

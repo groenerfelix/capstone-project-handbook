@@ -1,39 +1,68 @@
 
 # IFT 401 Capstone Project Handbook
 
-This is an interactive handbook to be handed out to students doing the capstone project (full-stack web application with Python, Flask, Bootstrap, and MySQL). It is written using [MkDocs](https://www.mkdocs.org/).
+This is an interactive handbook to be handed out to students doing the capstone project (full-stack web application with Python, Flask, Bootstrap, and MySQL; all deployed to AWS). It is written using [MkDocs](https://www.mkdocs.org/).
 
-## Access the contents of the handbook:
+## Chapters of the handbook:
 
-0. [Chapter 0: Getting Started](https://groenerfelix.github.io/capstone-project-handbook/chapter-0/)
-1. [Chapter 1: Creating Flask Apps](https://groenerfelix.github.io/capstone-project-handbook/chapter-1/)
-2. [Chapter 2: MySQL Database Setup](https://groenerfelix.github.io/capstone-project-handbook/chapter-2/)
-3. [Chapter 3: Database Integration in Flask Apps](https://groenerfelix.github.io/capstone-project-handbook/chapter-3/)
-4. [Chapter 4: CRUD Operations with Forms and Requests](https://groenerfelix.github.io/capstone-project-handbook/chapter-4/)
-5. [Chapter 5: Authentication and Access Control](https://groenerfelix.github.io/capstone-project-handbook/chapter-5/)
-6. [Chapter 6 (WIP): AWS RDS Database Setup](https://groenerfelix.github.io/capstone-project-handbook/chapter-6/)
-6. [Chapter 7 (WIP): Deploying to AWS EC2](https://groenerfelix.github.io/capstone-project-handbook/chapter-7/)
+0. Getting Started
+1. Creating Flask Apps
+2. MySQL Database Setup
+3. Database Integration in Flask Apps
+4. CRUD Operations with Forms and Requests
+5. Authentication and Access Control
+6. AWS RDS Database Setup
+7. Deploying to AWS EC2
 
 
 ## Printing to PDF
-The easiest way to get a PDF document from this is to open the webpage and print it using the built-in browser function (e.g., `CTRL + P`).
+The easiest way to get a PDF document of a chapter is to open the webpage and print it using the built-in browser function (e.g., `CTRL + P` or right click -> "Print...").
 
-The `extra.css` file contains some helper classes to control page breaks in prints.
-- Insert `<div class="page-break"></div>` where you want to force a break.
-- Wrap content in `<div class="no-break">...</div>` to avoid splitting it across pages.
+> [!NOTE]
+> The `extra.css` file contains some helper classes to control page breaks in prints.
+> - Insert `<div class="page-break"></div>` where you want to force a break.
+> - Wrap content in `<div class="no-break">...</div>` to avoid splitting it across pages.
 
 
 ## Setup, Development, and Deployment Steps:
 
-1. Install and set up python
-2. Create a virtual environment `python -m venv venv`
-3. Activate venv `venv\Scripts\activate`
-4. install requirements `pip install -r requirements.txt`
-5. Change directory `cd src`
-6. Start a local live preview in the browser `mkdocs serve --livereload`
-7. Edit files in `src/handbook/`: `md` for pages, `.yml` for config, `.css` for styling
-8. Save files and build distribution with `mkdocs build`
-9. Deploy files in `docs/` to static hosting (e.g., Github Pages)
+### One-time taking ownership and deploying the website
+
+1. On the GitHub repository page, next to the repository title, click "Fork" to copy the repository into your own account.
+2. In that new repository that you own, go to "Settings" at the top, then "Pages" on the left, and set up static hosting as shown in the screenshot below.
+    - Source: Deploy from branch
+    - Branch: Select "main" and click "Save"
+3. It might take a minute; then, the manual should be accessible at the URL shown on that settings page. Unless you have set up a custom domain, this will be in the form of `https://<username>.github.io/capstone-project-handbook/`
+
+![](src/handbook/assets/images/readme_deploy.jpg)
+
+
+
+### One-time setup of a local repository
+
+1. Install and set up python, pip, venv, and git
+2. Clone the GitHub repo with `git clone <link-to-repository>` into the desired folder
+3. Create a virtual environment `python -m venv venv`
+4. Activate venv `venv\Scripts\activate`
+5. install requirements `pip install -r requirements.txt`
+
+### Making, previewing, and publishing changes
+
+1. Ensure your virtual environment is set up and active `venv\Scripts\activate`
+2. Change directory with `cd` until you are in `src`
+3. Start a local live preview in the browser `mkdocs serve --livereload`
+4. Edit files in `src/handbook/`: `md` for pages, `.yml` for config, `.css` for styling
+5. Save files, then build the website with `mkdocs build`
+6. Optionally, print the local page as a PDF and overwrite the outdated one in `/PDFs/`
+7. Commit and push your changes
+    - move back to the root directory  with `cd ..`
+    - add all changed firles with `git add .`
+    - commit changes locally with `git commit -m "descriptive message"`
+    - publish your changes on GitHub with `git push origin main` 
+    - The website should update automatically within about a minute
+
+> [!CAUTION]
+> Never edit anything in `/docs/` as it will be overwritten in the build step!
 
 
 ## Regular Markdown
@@ -124,9 +153,17 @@ theme:
 
 ## Images and Captions
 
+Images can be inserted like this:
+
+```markdown
+![Alt text](https://dummyimage.com/600x400/){ width="300" }
+```
+
+Alternative text and width are optional. Center the image and add an optional caption with the following code:
+
 ```markdown
 <figure markdown="span">
-  ![Image title](https://dummyimage.com/600x400/){ width="300" }
+  ![Alternative image text](https://dummyimage.com/600x400/){ width="300" }
   <figcaption>Image caption</figcaption>
 </figure>
 ```
@@ -158,6 +195,7 @@ theme:
 
 
 Recurring tooltips can be defined once for every appearance of the word (e.g., abbreviations):
+
 ```
 The HTML specification is maintained by the W3C.
 
@@ -170,27 +208,6 @@ This also needs to be enabled in the `mkdocs.yml` config file.
 ```yml
 markdown_extensions:
     - abbr
-```
-
-
-
-
-## Icons and Emojis
-
-Find a list of emojis and icons here: [Link](https://squidfunk.github.io/mkdocs-material/reference/icons-emojis/)
-
-```markdown
-Welcome to the handbook. :fontawesome-regular-face-laugh-wink:
-```
-
-This also needs to be enabled in the `mkdocs.yml` config file.
-
-```yml
-markdown_extensions:
-  - attr_list
-  - pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 ```
 
 

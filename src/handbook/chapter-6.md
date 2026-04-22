@@ -11,13 +11,15 @@
 
 In these last two chapters, you will move the database and Flask app from your local computer to the cloud. On those remote servers, anyone can access your website at any time. 
 
+<figure markdown="1">
 Chapter | Browser | Flask App | Database
 --- | --- | --- | ---
 Chapters 0-5 | local | local | local 
 Chapter 6 | local | local | remote  
 Chapter 7 | local | remote | remote
+</figure>
 
-!!! warning "All students are required to go through this process to get a test application work. Only one team member will deploy the final project." 
+!!! warning "All students are required to go through this process to get a test application to work. Only one team member will deploy the final project." 
 
 
 ## Creating an AWS account
@@ -160,6 +162,9 @@ Your database connection string should now look something like this:
 ```
 mysql+pymysql://admin:password@my-rds-instance.xyz.us-east-2.rds.amazonaws.com:3306/flask_app
 ```
+
+!!! warning "Putting your RDS password into the code that you put on GitHub is an extreme exception! Never do this outside of this class!"
+      You should never put passwords into your code, especially if you are putting that code on GitHub. In your public repository, anyone can see that password and use it to access your database. To learn the more complicated but correct and safe way to handle passwords in code, look up "environment variables".
 
 Set up a Flask project with a virtual environment, copy the following code in to `app.py`, install the necessary packages (`flask flask_sqlalchemy pymysql`), and start the app.
 

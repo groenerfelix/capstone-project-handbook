@@ -33,10 +33,14 @@ Python is the programming language that you will primarily use in this class.
 
 #### On Windows
 
-1. Open the Microsoft Store app on your computer.
-2. Search for "Python" and open the *latest version*.
+1. Open the Microsoft Store app on your computer and log in if needed.
+2. Search for "Python" and open the *latest version* available in the Microsoft Store.
 3. Click "Install".
 4. Verify installation by opening Command Prompt and typing: `python --version`.
+
+<figure markdown="span">
+![Python in Mincrosoft Store](assets/images/ch0_store_python.png){ width="600" }
+</figure>
 
 !!! warning "If this does not work, install Python manually"
     1. Visit [python.org/downloads/](https://www.python.org/downloads/).
@@ -66,14 +70,16 @@ Visual Studio Code is the integrated developer environment that you will use for
 - Install the application on your computer.
 - Install the official Microsoft [Python extension for Visual Studio code](https://marketplace.visualstudio.com/items?itemName=ms-python.python) from the extensions marketplace.
 
-
+<figure markdown="span">
+![VSCode Python Extension](assets/images/ch0_python_extension.png){ width="600" }
+</figure>
 
 ### Installing GitHub Desktop
 
 You will use Git for version management and GitHub for code sharing, collaboration, and deployment.
 
 ??? info "What is the difference between Git and GitHub?"
-    Git is a local version control system for tracking code changes, while GitHub is one of several cloud platforms that hosts code repositories and add collaboration features. Git comes with the installation of the GitHub Desktop client.
+    Git is a local version control system for tracking code changes, while GitHub is one of several cloud platforms that host code repositories and add collaboration features. Git comes with the installation of the GitHub Desktop client.
 
 1. Download GitHub Desktop from [desktop.github.com](https://desktop.github.com).
 2. Install the application on your computer.
@@ -148,9 +154,10 @@ You will need to install some packages for each assignment. Install packages wit
 pip install package-name
 ```
 
-Replace `package-name` with whatever package you want to install
+Replace `package-name` with whatever package you want to install.
 
 !!! warning "Only install packages while your virtual environment is active!"
+    You can install packages no matter what folder your terminal is navigated to. Just make sure you activated the correct virtual environment.
 
 ??? info "How to verify your package installation"
     You can verify that your installation worked by listing all installed packages with `pip list`. This will likely show more than just the one you installed because a package might install its dependencies as well. For example, installing Flask (which we will introduce in the next chapter) automatically installs dependencies such as Wekzeug and Jinja.
@@ -166,8 +173,13 @@ Git allows you to easily trace, synchronize, and revert your changes. Set up a n
 To create a new repository in GitHub Desktop:
 
 1. Click “File”, then "New repository".
-2. Select your project folder.
-3. Publish your repository (see screenshot below) and make sure you **remove** the ckeckmark for "make this code private".
+2. Select the following settings during your creation process:
+    - Choose a unique name that you can tell apart from other assignments
+    - You can skip the description
+    - Select your project folder as the local path
+    - You do not need a README file, Git ignore, or License at this point.
+3. Click "Create repository" 
+4. Publish your repository (see screenshot below) and make sure you **remove** the ckeckmark for "make this code private".
 
 ??? warning "Why and how to make the repository public"
     The graders will need access to your code, and this will simplify the deployment to AWS at the end of the project.
@@ -235,7 +247,9 @@ root_folder/ # (1)!
 ??? info "Understanding this folder structure notation"
     We are going to use the above notation for folder structures throughout this manual. Each line is a file (if it includes a `.`) or a folder. A folder contains all the elements that are directly below it and further indented. The above structure would look as follows in Windows:
 
-    ![Folder Structure](assets/images/ch0_folder_structure_example.png)
+    <figure markdown="span">
+        ![GitHub Desktop publish](assets/images/ch0_folder_structure_example.png)
+    </figure>
 
 <div class="chapter-nav" markdown="1">
 

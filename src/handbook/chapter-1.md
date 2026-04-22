@@ -28,7 +28,7 @@ You can check whether Flask is installed with `pip list`.
 
 ### A minimal Flask application
 
-In your project folder, create a new file called `app.py`.
+Create a new file called `app.py` and paste the following code into it.
 
 ```python title="app.py"
 from flask import Flask # (1)!
@@ -46,7 +46,22 @@ def hello(): # (4)!
 4. Define the function that gets called. You can name this anything but make sure the name is not already taken.
 5. This string will be returned to whoever accesses the server. In a browser, this will be rendered as HTML.
 
-Start your app with `flask run`. It should show you in the console what URL you need to type into your browser to access the page (typically [http://127.0.0.1:5000/](http://127.0.0.1:5000/)). This should now display "Hello, World!".
+
+Your folder structure should now look like this:
+```
+flask_assignment_01/
+├── venv/
+└── my_flask_app/
+    ├── .gitignore
+    └── app.py
+```
+
+Start your app with `flask run`. 
+
+!!! warning "Make sure to navigate to the correct folder in your terminal."
+    Otherwise `flask run` will fail. Use `cd my_flask_app` to move to that folder. You need to be in the project folder, not the root folder to start your flask application.
+
+In the console, you should now see what URL you need to type into your browser to access the page (typically [http://127.0.0.1:5000/](http://127.0.0.1:5000/)). This should now display "Hello, World!".
 
 You can stop your app with `CTRL + C` or by closing the terminal.
 
@@ -88,7 +103,7 @@ Templates allow you to separate your Python code from your HTML. Instead of embe
 Add a folder which contains your HTML templates. It has to be in this exact location and has to be named `templates`:
 
 ```
-my_flask_project/
+flask_assignment_01/
 ├── venv/
 └── my_flask_app/
     ├── .gitignore
@@ -211,6 +226,10 @@ Your app will retrieve this predefined code from a content delivery network (CDN
 
 Get the link to the latest CSS (styles) and JS (code) from [getbootstrap.com/docs/5.0/getting-started/introduction](https://getbootstrap.com/docs/5.0/getting-started/introduction). These will look something like this:
 
+<figure markdown="span">
+![Getting the Bootstrap CDN link](assets/images/ch1_bootstrap_cdn.png)
+</figure>
+
 ```html
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 ```
@@ -314,7 +333,7 @@ If you ever need to add additional styling instructions or client-side code that
 Create the following two files in new folder and place the code below into them. Your final folder structure should look like this. The new folders and files should be named and placed exactly like this:
 
 ```
-my_flask_project/
+flask_assignment_01/
 ├── venv/
 └── my_flask_app/
     ├── .gitignore

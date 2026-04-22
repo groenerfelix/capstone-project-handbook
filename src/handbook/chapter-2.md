@@ -15,27 +15,36 @@ You will use MySQL as the database for this project. This chapter shows you how 
 
 You will only need to go through this installation once. After that, you will create a new database for each project.
 
+<figure markdown="span">
+![](assets/images/ch2_mysql_download.jpg){width="800"}
+</figure>
+
+
 ### Windows Installation
 
 1. Go to [dev.mysql.com/downloads](https://dev.mysql.com/downloads).
-2. Download 'MySQL Installer for Windows' (`mysql-installer-community`). 
+2. Download **only** 'MySQL Installer for Windows' (red rectangle in the screenshot at the top). 
 3. Run the installer and select 'Custom' installation.
 4. Select 'MySQL Server' ***and*** 'MySQL Workbench' from the products list.
-5. Follow the wizard to complete installation.
+
+    ![](assets/images/ch2_mysql_install.png){ width="500" }
+
+5. Follow the wizard and leave the default installation options.
 6. Set a root password and remember it!
 
-!!! warning "If you did not enable the option to automatically start the server with every device boot, you will need to manually start it when you need it"
+!!! warning "If you disabled the option to automatically start the server with every device boot, you will need to manually start it when you need it."
     - Open the Windows "Run" dialog by pressing the Windows key + R
     - Type `services.msc` and press "ok"
     - Find `MySQL80` in that list, right-click on it, and click "start"
 
+
 ### Mac Installation
 
 1. Go to [dev.mysql.com/downloads](https://dev.mysql.com/downloads).
-2. Select macOS and download the DMG archives for `MySQL Community Server` ***and*** `MySQL Workbench`.
+2. Select macOS and download the DMG archives for "MySQL Community Server" ***and*** "MySQL Workbench" (the yellow rectangles in the screenshot at the top).
 3. Double-click the downloaded DMG file.
 4. Run the installer package (`.pkg`).
-5. Follow the installation wizard.
+5. Follow the installation wizard and leave the default installation options.
 6. **IMPORTANT:** Save the temporary root password shown at the end!  
 
 !!! warning "If you lose your MySQL root password, you have to reset it through a recovery process."
